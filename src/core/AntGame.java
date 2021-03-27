@@ -27,6 +27,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import Audio.BackgroundMusic;
 import ants.ThrowerAnt;
 
 /**
@@ -138,6 +140,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		frame.add(this);
 		frame.pack();
 		frame.setVisible(true);
+
+		BackgroundMusic bgMusic = new BackgroundMusic("/Audio/sound.wav"); //load sound from directory
+		bgMusic.play();
 	}
 
 	public void paintComponent(Graphics g)
