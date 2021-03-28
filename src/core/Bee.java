@@ -7,7 +7,7 @@ package core;
 public class Bee extends Insect
 {
 	private static final int DAMAGE = 1;
-	
+	Insect insect;
 	/**
 	 * Creates a new bee with the given armor
 	 * @param armor The bee's armor
@@ -24,6 +24,7 @@ public class Bee extends Insect
 	public void sting(Ant ant)
 	{
 		ant.reduceArmor(DAMAGE);
+
 	}
 	
 	/**
@@ -54,11 +55,12 @@ public class Bee extends Insect
 	 * A bee's action is to sting the Ant that blocks its exit if it is blocked,
 	 * otherwise it moves to the exit of its current place.
 	 */
-	public void action(AntColony colony)
-	{
-		if(this.isBlocked())
+	public void action(AntColony colony) {
+		if (this.isBlocked()) {
 			sting(this.place.getAnt());
-		else if(this.armor > 0)
+
+		} else if (this.armor > 0) {
 			this.moveTo(this.place.getExit());
+		}
 	}
 }

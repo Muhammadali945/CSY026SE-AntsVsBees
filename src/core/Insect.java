@@ -7,6 +7,8 @@ package core;
  */
 public abstract class Insect
 {
+
+
 	protected int armor; //insect's current armor
 	protected Place place; //insect's current location
 	
@@ -63,6 +65,11 @@ public abstract class Insect
 	 * Reduces the insect's current armor (e.g., through damage)
 	 * @param amount The amount to decrease the armor by
 	 */
+
+	public void setArmor(int armor) {
+		this.armor = armor;
+	}
+
 	public void reduceArmor(int amount)
 	{
 		this.armor -= amount;

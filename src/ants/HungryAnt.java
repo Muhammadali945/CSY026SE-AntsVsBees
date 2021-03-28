@@ -34,6 +34,7 @@ public class HungryAnt extends Ant
         {
             target.reduceArmor(ta.damage);
         }
+
         colony.increaseFood(4);
     }
 }

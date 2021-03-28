@@ -29,6 +29,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	//game models
 	private AntColony colony;
 	private Hive hive;
+	Insect insect;
 	private static final String ANT_FILE = "antlist.properties";	
 	private static final String ANT_PKG = "ants";
 
@@ -212,7 +213,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 				if(entry.getKey().getArmor() <= 0){ //if dead bee
 					AnimPosition pos = entry.getValue();
 					pos.animateTo((int)pos.x, CRYPT_HEIGHT, FPS*TURN_SECONDS);
+
 				}
+
 			}
 		}
 		

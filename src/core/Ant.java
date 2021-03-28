@@ -1,15 +1,12 @@
 package core;
-
 /**
  * A class representing a basic Ant
  * 
  * @author YOUR NAME HERE
  */
+import java.util.*;
 public abstract class Ant extends Insect
 {
-	public void setFoodCost(int foodCost) {
-		this.foodCost = foodCost;
-	}
 
 	protected int foodCost; //the amount of food needed to make this ant
 	
@@ -22,6 +19,12 @@ public abstract class Ant extends Insect
 		super(armor, null);
 		this.foodCost = 0;
 	}
+
+	public void setFoodCost(int foodCost)
+	{
+		this.foodCost = foodCost;
+	}
+
 
 	/**
 	 * Returns the ant's food cost
@@ -40,5 +43,3 @@ public abstract class Ant extends Insect
 		this.place.removeInsect(this);
 	}	
 }
-// comment
-//aanother  comment for understanding

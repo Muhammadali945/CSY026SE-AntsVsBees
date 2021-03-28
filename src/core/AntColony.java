@@ -138,7 +138,9 @@ public class AntColony
 		if(place.getAnt() != null)
 			place.removeInsect(place.getAnt());
 	}
-	
+
+
+
 	/**
 	 * Returns a list of all the ants currently in the colony
 	 * @return a list of all the ants currently in the colony
