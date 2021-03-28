@@ -116,12 +116,16 @@ public class AntColony
 	 */
 	public void deployAnt(Place place, Ant ant)
 	{
-		if(this.food >= ant.getFoodCost())
+		//if the food is Zero then an error message will be displayed to the user else it will add an Ant
+		if(this.food==0){
+			System.out.println("Can not deploy ant without enough food");
+		}
+		else if(this.food >= ant.getFoodCost())
 		{
-			this.food -= ant.getFoodCost();
+			this.food=food- ant.getFoodCost()+2;
 			place.addInsect(ant);
 		}
-		else
+
 			System.out.println("Not enough food remains to place "+ant);
 	}
 
@@ -149,7 +153,8 @@ public class AntColony
 		}
 		return ants;
 	}
-	
+
+
 	/**
 	 * Returns a list of all the bees currently in the colony
 	 * @return a list of all the bees currently in the colony

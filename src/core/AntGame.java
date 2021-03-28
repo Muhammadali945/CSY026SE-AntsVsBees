@@ -1,14 +1,12 @@
 package core;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Shape;
+import ants.HungryAnt;
+import ants.ThrowerAnt;
+
+import javax.imageio.ImageIO;
+import javax.swing.Timer;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -17,17 +15,7 @@ import java.awt.geom.Path2D;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Scanner;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import ants.ThrowerAnt;
+import java.util.*;
 
 /**
  * A class that controls the graphical game of Ants vs. Some-Bees. Game simulation system and GUI interaction are intermixed.
@@ -43,7 +31,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	private Hive hive;
 	private static final String ANT_FILE = "antlist.properties";	
 	private static final String ANT_PKG = "ants";
-	
+
 	//game clock & speed
 	public static final int FPS = 30; //target frames per second
 	public static final int TURN_SECONDS = 3; //seconds per turn
@@ -186,7 +174,19 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 					Bee target = ((ThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
 					if(target != null)
 						createLeaf(ant, target);
+
+				} else if(ant instanceof HungryAnt) //if we're a thrower, might need to make a leaf!
+				{
+                   if(turn==3){ //Added code for HungryAnt
+					Bee target = ((HungryAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
+					if(target != null)
+						createLeaf(ant, target);
 				}
+
+					Bee target = ((HungryAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
+					if(target != null)
+						createLeaf(ant, target);
+                   }
 				ant.action(colony); //take the action (actually completes the throw now)
 			}
 			
@@ -204,6 +204,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 
 			//if want to do this to ants as well, will need to start storing dead ones with AnimPositions
 		}
+
 		if(frame == (int)(LEAF_SPEED*FPS)) //after leaves animate
 		{
 			for(Map.Entry<Bee,AnimPosition> entry : allBeePositions.entrySet()) //remove dead bees
@@ -476,11 +477,11 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		for(int i=0; i<bees.length; i++)
 		{
 			allBeePositions.put(bees[i], 
-					new AnimPosition( (int)(HIVE_POS.x+(20*Math.random()-10)), (int)(HIVE_POS.y +(100*Math.random()-50)) )
+					new AnimPosition( (int)(HIVE_POS.x+(20*Math.random()-10)), (int)(HIVE_POS.y +(100*Math.random()-50)))
 			);
 		}
 	}
-	
+
 	/**
 	 * Initializes the Colony graphics for the game.
 	 * Assumes that the AntColony.getPlaces() method returns places in order by row
@@ -649,5 +650,4 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			return img; //return the image
 		}
 	}
-	
 }

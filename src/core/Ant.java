@@ -7,6 +7,10 @@ package core;
  */
 public abstract class Ant extends Insect
 {
+	public void setFoodCost(int foodCost) {
+		this.foodCost = foodCost;
+	}
+
 	protected int foodCost; //the amount of food needed to make this ant
 	
 	/**

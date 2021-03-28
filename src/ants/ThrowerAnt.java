@@ -7,6 +7,8 @@ import core.Bee;
  * An ant who throws leaves at bees
  * @author YOUR NAME HERE
  */
+// Author: Ahmed AL-KURDY
+
 public class ThrowerAnt extends Ant
 {
 	protected int damage;
@@ -18,6 +20,7 @@ public class ThrowerAnt extends Ant
 	public ThrowerAnt()
 	{
 		super(1);
+		this.setFoodCost(4);
 		this.damage = 1;
 	}
 	
@@ -36,6 +39,7 @@ public class ThrowerAnt extends Ant
 		if(target != null)
 		{
 			target.reduceArmor(this.damage);
+
 		}
 	}
 }

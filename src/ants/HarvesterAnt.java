@@ -3,10 +3,9 @@ package ants;
 import core.Ant;
 import core.AntColony;
 
-/**
- * An Ant that harvests food
- * @author YOUR NAME HERE
- */
+// Author: Ahmed AL-KURDY
+// This is the harvester ant
+
 public class HarvesterAnt extends Ant
 {
 	/**
@@ -15,10 +14,15 @@ public class HarvesterAnt extends Ant
 	public HarvesterAnt()
 	{
 		super(1);
+		this.setFoodCost(2);
+
 	}
 
 	public void action(AntColony colony)
 	{
-		//TODO: Should produce one additional food for the colony		
-	}	
+		//TODO: Should produce one additional food for the colony
+
+		colony.increaseFood(2);
+
+	}
 }
