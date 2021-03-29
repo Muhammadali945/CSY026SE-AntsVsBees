@@ -7,7 +7,7 @@ package core;
 public class Bee extends Insect
 {
 	private static final int DAMAGE = 1;
-	Insect insect;
+
 	/**
 	 * Creates a new bee with the given armor
 	 * @param armor The bee's armor
@@ -24,6 +24,7 @@ public class Bee extends Insect
 	public void sting(Ant ant)
 	{
 		ant.reduceArmor(DAMAGE);
+
 
 	}
 	
@@ -56,6 +57,8 @@ public class Bee extends Insect
 	 * otherwise it moves to the exit of its current place.
 	 */
 	public void action(AntColony colony) {
+		Bee bee= new Bee(getArmor());
+
 		if (this.isBlocked()) {
 			sting(this.place.getAnt());
 

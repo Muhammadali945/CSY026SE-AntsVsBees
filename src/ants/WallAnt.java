@@ -26,7 +26,7 @@ public class WallAnt extends Ant
 
     public void action(AntColony colony)
     {
-         colony.increaseFood(4);
+
 
     }
 }

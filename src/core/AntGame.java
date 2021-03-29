@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
+
 /**
  * A class that controls the graphical game of Ants vs. Some-Bees. Game simulation system and GUI interaction are intermixed.
  * 
@@ -29,7 +30,6 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	//game models
 	private AntColony colony;
 	private Hive hive;
-	Insect insect;
 	private static final String ANT_FILE = "antlist.properties";	
 	private static final String ANT_PKG = "ants";
 
@@ -175,20 +175,19 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 					Bee target = ((ThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
 					if(target != null)
 						createLeaf(ant, target);
-
+                 ////////////////////////////////////////////////////////////////////////////////////////////
+			    	////////////////////////////////////////////////////////////////////////////////////////
 				} else if(ant instanceof HungryAnt) //if we're a thrower, might need to make a leaf!
 				{
-                   if(turn==3){ //Added code for HungryAnt
-					Bee target = ((HungryAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
-					if(target != null)
-						createLeaf(ant, target);
+                   	Bee target = ((HungryAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
+
+			        	   if (target != null)
+							createLeaf(ant, target);
+
 				}
 
-					Bee target = ((HungryAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
-					if(target != null)
-						createLeaf(ant, target);
-                   }
 				ant.action(colony); //take the action (actually completes the throw now)
+
 			}
 			
 			//bees take action!
@@ -213,9 +212,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 				if(entry.getKey().getArmor() <= 0){ //if dead bee
 					AnimPosition pos = entry.getValue();
 					pos.animateTo((int)pos.x, CRYPT_HEIGHT, FPS*TURN_SECONDS);
-
 				}
-
 			}
 		}
 		
