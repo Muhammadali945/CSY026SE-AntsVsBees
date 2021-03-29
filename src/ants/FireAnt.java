@@ -22,7 +22,7 @@ public class FireAnt extends Ant
     {
         super(1);
         this.setFoodCost(4);
-
+        this.damage= 3;
     }
 
     /**
