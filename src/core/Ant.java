@@ -16,7 +16,7 @@ public abstract class Ant extends Insect
 	public Ant(int armor)
 	{
 		super(armor, null);
-		this.foodCost = 0;
+		//this.foodCost = 0;
 	}
 
 	/**
@@ -27,7 +27,10 @@ public abstract class Ant extends Insect
 	{
 		return foodCost;
 	}
-	
+	public void setFoodCost(int foodCost)
+	{
+		 this.foodCost = foodCost;
+	}
 	/**
 	 * Removes the ant from its current place
 	 */
