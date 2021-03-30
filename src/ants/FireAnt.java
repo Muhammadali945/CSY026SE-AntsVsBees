@@ -22,7 +22,7 @@ public class FireAnt extends Ant
     {
         super(1);
         this.setFoodCost(4);
-        this.damage= 3;
+        this.damage= 1;
     }
 
     /**
@@ -35,21 +35,23 @@ public class FireAnt extends Ant
         return place.getClosestBee(0,3);
     }
 
+    // The following function reduces the armor of the bees and sets the value of damage to 3
+    // and kills both the the ant and the bee once they co-locate
+    public void setFireAntArmor(FireAnt fa, Bee target)
+    {
+        if(target != null)
+        {
+            fa.damage=3;
+            target.DAMAGE=3;
+            target.reduceArmor(target.DAMAGE);
+            place.removeInsect(this);
+        }
+    }
     public void action(AntColony colony)
     {
         FireAnt fa=new FireAnt();
-
-        colony.increaseFood(4);
-
-
         Bee target = getTarget();
-        if(fa.getArmor()==0 && fa.getArmor()==target.getArmor())
-        {
-            this.damage=3;
-            target.reduceArmor(this.damage);
-            System.out.println("\n Armor reduced accordingly.");
-
-        }
+        setFireAntArmor(fa,target ); //Call to the function setFireAntArmor
 
     }
 }

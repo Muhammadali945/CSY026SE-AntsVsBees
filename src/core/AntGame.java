@@ -1,5 +1,6 @@
 package core;
 
+import ants.FireAnt;
 import ants.HungryAnt;
 import ants.ThrowerAnt;
 
@@ -175,8 +176,8 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 					Bee target = ((ThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
 					if(target != null)
 						createLeaf(ant, target);
-                 ////////////////////////////////////////////////////////////////////////////////////////////
-			    	////////////////////////////////////////////////////////////////////////////////////////
+
+					//The following is a modification for the class to include the HungryAnt
 				} else if(ant instanceof HungryAnt) //if we're a thrower, might need to make a leaf!
 				{
                    	Bee target = ((HungryAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
@@ -184,6 +185,17 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			        	   if (target != null)
 							createLeaf(ant, target);
 
+				}
+
+				//The following is a modification for the class to include the FireAnt
+				else if(ant instanceof FireAnt) //if we're a thrower, might need to make a leaf!
+				{
+					Bee target = ((FireAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
+
+					if (target != null) {
+						createLeaf(ant, target);
+
+					}
 				}
 
 				ant.action(colony); //take the action (actually completes the throw now)

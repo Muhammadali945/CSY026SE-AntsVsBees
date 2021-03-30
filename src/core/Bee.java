@@ -6,7 +6,7 @@ package core;
  */
 public class Bee extends Insect
 {
-	private static final int DAMAGE = 1;
+	public static int DAMAGE = 1;
 
 	/**
 	 * Creates a new bee with the given armor
