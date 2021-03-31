@@ -4,39 +4,38 @@ import core.Ant;
 import core.AntColony;
 import core.Bee;
 
-import java.util.Random;
+public class HungryAnt extends Ant {
 
-/**
- * An Ant that eats a random bee
- * @author Ahmed AL-KURDY
- */
-public class HungryAnt extends Ant
-{
-    protected int damage;
-    /**
-     * Creates a new Hungry Ant
-     */
-    public HungryAnt()
-    {
+    private int turn; // tells whether its this ants turn to attack
+    private boolean digested; // is basically the time required for ant to digest the bee.
+
+    public HungryAnt() {
         super(1);
         this.setFoodCost(4);
-        this.damage= 3;
+        turn=0;
     }
 
-
-    public Bee getTarget(){
-        return place.getClosestBee(0,3);
+    public Bee getTarget() {
+        return place.getClosestBee(0,0);
     }
 
-    public void action(AntColony colony) {
-        HungryAnt ha=new HungryAnt();
+    public int getTurn() {
+        return this.turn;
+    }
+
+    public void setTurn(int d) {
+        this.turn=d;
+    }
+
+    public void action (AntColony colony) {
         Bee target = getTarget();
-
-        if(target != null)
-        {
-            target.reduceArmor(ha.damage);
-
+        if (target != null && getTurn()%3==0) {
+            target.reduceArmor(target.getArmor());
+            setTurn(getTurn()+1);
+            digested=true;
         }
-
+        else if (digested==true) {
+            setTurn(getTurn()+1);
+        }
     }
 }
