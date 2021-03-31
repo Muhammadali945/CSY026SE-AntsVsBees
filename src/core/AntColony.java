@@ -164,6 +164,8 @@ public class AntColony
 		}
 		return bees;
 	}
+
+
 	
 	public String toString()
 	{
