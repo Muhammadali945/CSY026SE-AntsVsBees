@@ -47,7 +47,18 @@ public class Bee extends Insect
 	 */
 	public boolean isBlocked()
 	{
-		return this.place.getAnt() != null;
+
+		//return this.place.getAnt() != null;
+		if (place == null) { //for all other conditions
+			return true;
+		}
+		if(place.getAnt() != null && place.getAnt().getBlockingAnt()==true) {
+			return false;
+		}else{
+			return place.getAnt() != null;
+
+	}
+
 	}
 
 	/**

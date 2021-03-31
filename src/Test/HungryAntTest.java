@@ -1,6 +1,8 @@
-package ants;
+package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import ants.HungryAnt;
 import core.Bee;
 import core.Place;
 import core.AntColony;

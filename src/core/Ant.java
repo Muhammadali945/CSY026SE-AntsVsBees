@@ -8,6 +8,8 @@ package core;
 public abstract class Ant extends Insect
 {
 	protected int foodCost; //the amount of food needed to make this ant
+	public boolean blockingAnt;
+
 	
 	/**
 	 * Creates a new Ant, with a food cost of 0.
@@ -16,6 +18,8 @@ public abstract class Ant extends Insect
 	public Ant(int armor)
 	{
 		super(armor, null);
+		blockingAnt = false; //default is false, only true for ninja ant
+
 		//this.foodCost = 0;
 	}
 
@@ -37,5 +41,13 @@ public abstract class Ant extends Insect
 	public void leavePlace()
 	{
 		this.place.removeInsect(this);
-	}	
+	}
+
+	public boolean getBlockingAnt() {  //Ajout getters setters de BlockingAnt
+		return blockingAnt;
+	}
+
+	public void setBlockingAnt(boolean blockingAnt) {
+		this.blockingAnt = blockingAnt;
+	}
 }
