@@ -138,6 +138,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		button1.addActionListener(this);
 		button2.addActionListener(this);
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.blue);
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		panel.add(button1);
 		panel.add(button2);
