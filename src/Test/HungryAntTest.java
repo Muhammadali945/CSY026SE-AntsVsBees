@@ -84,9 +84,6 @@ class HungryAntTest {
         place.addInsect(bee1);
         ha.action(colony);
         assertEquals(0,bee1.getArmor());
-
-
-
     }
     @Test
     void testHungryAntsWaitTimeBeforeAttackingAnotherBee(){

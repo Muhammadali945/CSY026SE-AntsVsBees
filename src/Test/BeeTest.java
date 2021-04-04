@@ -44,7 +44,7 @@ class BeeTest {
     @Test
     void reduceArmorByAntAction() {
         place1.addInsect(bee);
-        place1.removeInsect(throwerAnt);
+        place1.addInsect(throwerAnt);
         colony.deployAnt(place1,throwerAnt);
         throwerAnt.action(colony);
         assertEquals(2,bee.getArmor());

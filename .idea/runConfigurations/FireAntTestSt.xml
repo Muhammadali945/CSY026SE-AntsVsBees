@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="FireAntTestSt" type="JUnit" factoryName="JUnit">
+    <module name="AntsVsBees" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="Test.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="Test" />
+    <option name="MAIN_CLASS_NAME" value="Test.FireAntTest" />
+    <option name="METHOD_NAME" value="getTarget" />
+    <option name="TEST_OBJECT" value="method" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
