@@ -19,7 +19,7 @@ public class HarvesterAnt extends Ant
 	}
 
 	public void action(AntColony colony)
-	{//TODO: Should produce one additional food for the colony
-		colony.increaseFood(2);
+	{
+		colony.increaseFood(2); // increases the food with 2
 	}	
 }

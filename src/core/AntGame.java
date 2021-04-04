@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Audio.BackgroundMusic;
+import ants.FireAnt;
 import ants.ThrowerAnt;
 
 /**
@@ -192,7 +193,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 					if(target != null)
 						createLeaf(ant, target);
 				}
-				ant.action(colony); //take the action (actually completes the throw now)
+					ant.action(colony); //take the action (actually completes the throw now)
 			}
 			
 			//bees take action!

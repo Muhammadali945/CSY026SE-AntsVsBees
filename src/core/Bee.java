@@ -6,8 +6,15 @@ package core;
  */
 public class Bee extends Insect
 {
-	private static final int DAMAGE = 1;
-	
+
+	public static int DAMAGE = 1;
+
+	public  int getDAMAGE() {
+		return DAMAGE;
+	}
+	public static void setDAMAGE(int DAMAGE) {
+		Bee.DAMAGE = DAMAGE;
+	}
 	/**
 	 * Creates a new bee with the given armor
 	 * @param armor The bee's armor
