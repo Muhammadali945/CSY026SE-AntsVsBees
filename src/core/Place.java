@@ -1,5 +1,8 @@
 package core;
 
+import ants.Containing;
+import ants.ContainingAnt;
+
 import java.util.ArrayList;
 
 /**
@@ -121,8 +124,19 @@ public class Place
 			this.ant = ant;
 			ant.setPlace(this);
 		}
-		else
-			System.out.println("Already an ant in "+this); //report error
+		else if (this.ant != null && !(this.ant instanceof Containing) && ant instanceof Containing) {
+			if (((Containing) ant).EncapsulateAnt(this.ant)) {
+				this.ant = ant;
+				ant.setPlace(this);
+				System.out.println("A Bodyguard Ant has been placed in this " + this);
+			}
+			else {
+				System.out.println("Already an ant con in " + this);
+			}
+		}
+		else {
+			System.out.println("Already an ant in " + this); //report error
+		}
 	}
 
 	/**

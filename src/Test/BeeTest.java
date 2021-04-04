@@ -1,5 +1,6 @@
 package Test;
 
+import ants.BodyguardAnt;
 import ants.ThrowerAnt;
 import core.AntColony;
 import core.Bee;
@@ -14,15 +15,16 @@ import core.Ant;
 
 class BeeTest {
     /**
-    * @author ali
+    * @author Muhammad
     * This class various functions associated with bee class including inherited methods from its super class ie insect
     * */
     Bee bee = new Bee(3);
-    AntColony colony = new AntColony(1,5,0,5);
+    AntColony colony = new AntColony(1,5,0,10);
     Place place1 = new Place("place1");
     Place place2 = new Place("place2");
     Place place3 = new Place("place3",place1);
     Ant throwerAnt = new ThrowerAnt();
+    Ant body = new BodyguardAnt();
 
 
     @Test
@@ -52,9 +54,11 @@ class BeeTest {
     @Test
     void sting() {
         place1.addInsect(bee);
-        place1.removeInsect(throwerAnt);
+        place1.addInsect(throwerAnt);
+        place1.addInsect(body);
         colony.deployAnt(place1,throwerAnt);
-        bee.sting(throwerAnt);
+        colony.deployAnt(place1, body);
+        bee.action(colony);
         assertEquals(0,throwerAnt.getArmor());
     }
 

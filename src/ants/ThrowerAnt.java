@@ -19,6 +19,7 @@ public class ThrowerAnt extends Ant
 	{
 		super(1);
 		this.damage = 1;
+		this.setFoodCost(4);
 	}
 	
 	/**

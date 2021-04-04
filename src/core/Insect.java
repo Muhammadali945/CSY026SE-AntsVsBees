@@ -65,6 +65,7 @@ public abstract class Insect
 	 */
 	public void reduceArmor(int amount)
 	{
+		System.out.println("armor left of" + this + "is equal to" + armor);
 		this.armor -= amount;
 		if(this.armor <= 0)
 		{

@@ -186,6 +186,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			//ants take action!
 			for(Ant ant : colony.getAllAnts())
 			{
+				System.out.println(ant.toString());
 				if(ant instanceof ThrowerAnt) //if we're a thrower, might need to make a leaf!
 				{
 					Bee target = ((ThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
@@ -249,8 +250,12 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		{
 			//check for end condition before proceeding
 			if(colony.queenHasBees()) { //we lost!
+				BackgroundMusic laugh = new BackgroundMusic("/audio/laugh.wav");
+				laugh.play();
 				JOptionPane.showMessageDialog(this, "The ant queen has perished! Please try again.", "Bzzzzz!", JOptionPane.PLAIN_MESSAGE);
+
 				System.exit(0); //quit
+
 			}
 			if(hive.getBees().length + colony.getAllBees().size() == 0){ //no more bees--we won!
 				JOptionPane.showMessageDialog(this, "All bees are vanquished. You win!", "Yaaaay!", JOptionPane.PLAIN_MESSAGE);
