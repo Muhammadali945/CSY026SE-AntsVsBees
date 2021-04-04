@@ -9,6 +9,7 @@ public abstract class Ant extends Insect
 {
 	protected int foodCost; //the amount of food needed to make this ant
 	public boolean blockingAnt;
+	private boolean isInAContaining;
 
 	
 	/**
@@ -19,8 +20,18 @@ public abstract class Ant extends Insect
 	{
 		super(armor, null);
 		blockingAnt = false; //default is false, only true for ninja ant
+		isInAContaining = false; //default is false
 
 		//this.foodCost = 0;
+	}
+
+	@Override
+	public String toString() {
+		return "Ant{" +
+				"foodCost=" + foodCost +
+				", blockingAnt=" + blockingAnt +
+				", isInAContaining=" + isInAContaining +
+				'}';
 	}
 
 	/**
@@ -49,5 +60,13 @@ public abstract class Ant extends Insect
 
 	public void setBlockingAnt(boolean blockingAnt) {
 		this.blockingAnt = blockingAnt;
+	}
+
+	public boolean isInAContaining() {
+		return isInAContaining;
+	}
+
+	public void setInAContaining(boolean isInAContaining) {
+		this.isInAContaining = isInAContaining;
 	}
 }
