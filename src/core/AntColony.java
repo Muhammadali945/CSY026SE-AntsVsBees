@@ -146,10 +146,10 @@ public class AntColony
 		ArrayList<Ant> ants = new ArrayList<Ant>();
 		for (Place p : places) {
 			if (p.getAnt() != null) {
-				if (p.getAnt() instanceof ContainingAnt) { //Si la fourmi sur la place est une containing
-					//	ants.add(p.getAnt()); //Ajoute à la liste la fourmi contenante. (Voir l.197, déja là)
-					if (((ContainingAnt) p.getAnt()).ObtainInsect() != null){
-						ants.add(((ContainingAnt) p.getAnt()).ObtainInsect());//ET SON CONTENU
+				if (p.getAnt() instanceof ContainingAnt) { // check if the ant is a Containing ant
+					//	
+					if (((ContainingAnt) p.getAnt()).ObtainInsect() != null){ // if the above is true; check the encapsulated ant 
+						ants.add(((ContainingAnt) p.getAnt()).ObtainInsect());// get the encapsulated ant
 					}
 				}
 
