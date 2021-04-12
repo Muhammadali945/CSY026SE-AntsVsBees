@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Audio.BackgroundMusic;
+import ants.SlowThrowerAnt;
 import ants.ThrowerAnt;
 
 /**
@@ -186,9 +187,15 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			//ants take action!
 			for(Ant ant : colony.getAllAnts())
 			{
-				if(ant instanceof ThrowerAnt) //if we're a thrower, might need to make a leaf!
+				if(ant instanceof ThrowerAnt) // //if we're a thrower, might need to make a leaf!
 				{
 					Bee target = ((ThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
+					if(target != null)
+						createLeaf(ant, target);
+				}
+				else if(ant instanceof SlowThrowerAnt) // for Slow thrower Ant, we need to make a leaf!
+				{
+					Bee target = ((SlowThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
 					if(target != null)
 						createLeaf(ant, target);
 				}
