@@ -2,7 +2,7 @@ package ants;
 import core.*;
 
 import static core.Bee.DAMAGE;
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 /**
  * An ant who throws leaves at bees

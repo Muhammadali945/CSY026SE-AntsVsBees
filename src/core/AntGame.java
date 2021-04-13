@@ -133,14 +133,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		frame.pack();
 		frame.setVisible(true);
 
-		button1 = new JButton("pause");
-		button2 = new JButton("play");
+		button1 = new JButton("pause"); // add pause button
+		button2 = new JButton("play"); // add a play button
 		button1.addActionListener(this);
 		button2.addActionListener(this);
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.blue);
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		panel.add(button1);
+		panel.add(button1); // add button to the new panel
 		panel.add(button2);
 		frame.add(panel, BorderLayout.NORTH);
 
@@ -255,7 +255,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		{
 			//check for end condition before proceeding
 			if(colony.queenHasBees()) { //we lost!
-				BackgroundMusic laugh = new BackgroundMusic("/audio/laugh.wav");
+				BackgroundMusic laugh = new BackgroundMusic("/audio/laugh.wav"); // add music for lost
 				laugh.play();
 				JOptionPane.showMessageDialog(this, "The ant queen has perished! Please try again.", "Bzzzzz!", JOptionPane.PLAIN_MESSAGE);
 
@@ -353,10 +353,18 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 
 			g2d.setColor(Color.BLACK);
 			g2d.draw(rect); //border box (where to click)
-
+			/**
+			 * added water place to make it distinguishable from normal tunnels
+			 */
+			if(place instanceof Water)
+			{
+				g2d.setColor(Color.BLUE);  //Blue color to represent water
+				g2d.draw(rect);
+				//g2d.fill(rect);
+			}
 			if(place != tunnelEnd) //don't draw for queen location
-				g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null); //decorative image
-			
+			{g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null);} //decorative image
+
 			Ant ant = place.getAnt();
 			if(ant != null){ //draw the ant if we have one
 				Image img = ANT_IMAGES.get(ant.getClass().getName());
@@ -581,9 +589,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	{
 		if(e.getSource() == clock) //in case we want buttons later or something
 		{nextFrame();}
-		if(e.getSource() == button1)
+		if(e.getSource() == button1) //implement the pause game function
 		{clock.stop();}
-		if(e.getSource() == button2)
+		if(e.getSource() == button2)  //implements the play game function
 		{clock.restart();}
 
 	}
