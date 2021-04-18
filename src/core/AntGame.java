@@ -1,6 +1,14 @@
 package core;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,10 +23,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import Audio.BackgroundMusic;
-import ants.FireAnt;
+import ants.SlowThrowerAnt;
 import ants.ThrowerAnt;
 
 /**
@@ -43,8 +54,6 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	private int turn; //current game turn
 	private int frame; //time elapsed since last turn
 	private Timer clock;
-	private JButton button1;
-	private JButton button2;
 	
 	//ant properties (laoded from external files, stored as member variables)
 	private final ArrayList<String> ANT_TYPES;
@@ -133,19 +142,6 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		frame.pack();
 		frame.setVisible(true);
 
-		button1 = new JButton("pause");
-		button2 = new JButton("play");
-		button1.addActionListener(this);
-		button2.addActionListener(this);
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.blue);
-		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		panel.add(button1);
-		panel.add(button2);
-		frame.add(panel, BorderLayout.NORTH);
-
-
-
 		BackgroundMusic bgMusic = new BackgroundMusic("/Audio/sound.wav"); //load sound from directory
 		bgMusic.play();
 	}
@@ -191,14 +187,19 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			//ants take action!
 			for(Ant ant : colony.getAllAnts())
 			{
-				System.out.println(ant.toString());
-				if(ant instanceof ThrowerAnt) //if we're a thrower, might need to make a leaf!
+				if(ant instanceof ThrowerAnt) // //if we're a thrower, might need to make a leaf!
 				{
 					Bee target = ((ThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
 					if(target != null)
 						createLeaf(ant, target);
 				}
-					ant.action(colony); //take the action (actually completes the throw now)
+				else if(ant instanceof SlowThrowerAnt) // for Slow thrower Ant, we need to make a leaf!
+				{
+					Bee target = ((SlowThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
+					if(target != null)
+						createLeaf(ant, target);
+				}
+				ant.action(colony); //take the action (actually completes the throw now)
 			}
 			
 			//bees take action!
@@ -255,12 +256,8 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		{
 			//check for end condition before proceeding
 			if(colony.queenHasBees()) { //we lost!
-				BackgroundMusic laugh = new BackgroundMusic("/audio/laugh.wav");
-				laugh.play();
 				JOptionPane.showMessageDialog(this, "The ant queen has perished! Please try again.", "Bzzzzz!", JOptionPane.PLAIN_MESSAGE);
-
 				System.exit(0); //quit
-
 			}
 			if(hive.getBees().length + colony.getAllBees().size() == 0){ //no more bees--we won!
 				JOptionPane.showMessageDialog(this, "All bees are vanquished. You win!", "Yaaaay!", JOptionPane.PLAIN_MESSAGE);
@@ -580,12 +577,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource() == clock) //in case we want buttons later or something
-		{nextFrame();}
-		if(e.getSource() == button1)
-		{clock.stop();}
-		if(e.getSource() == button2)
-		{clock.restart();}
-
+			nextFrame();
 	}
 	
 	public void mousePressed(MouseEvent event)
@@ -669,7 +661,5 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			return img; //return the image
 		}
 	}
-
-
 	
 }

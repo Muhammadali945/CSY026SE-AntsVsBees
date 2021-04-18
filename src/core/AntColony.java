@@ -1,8 +1,6 @@
 package core;
 
 import java.util.ArrayList;
-import ants.BodyguardAnt;
-import ants.ContainingAnt;
 
 /**
  * An entire colony of ants and their tunnels.
@@ -113,13 +111,12 @@ public class AntColony
 	//place an ant if there is enough food available
 	/**
 	 * Places the given ant in the given tunnel IF there is enough available food. Otherwise has no effect
-	 * If in case a bodyguard has to be added, it will check that already a bodyguard ant is not present at that place
 	 * @param place Where to place the ant
 	 * @param ant The ant to place
 	 */
 	public void deployAnt(Place place, Ant ant)
 	{
-		if ((food >= ant.getFoodCost() && place.getAnt() == null) || (food >= ant.getFoodCost() && place.getAnt() instanceof ContainingAnt && !(ant instanceof ContainingAnt)) || (food >= ant.getFoodCost() && !(place.getAnt() instanceof ContainingAnt) && ant instanceof ContainingAnt))
+		if(this.food >= ant.getFoodCost())
 		{
 			this.food -= ant.getFoodCost();
 			place.addInsect(ant);
@@ -142,23 +139,16 @@ public class AntColony
 	 * Returns a list of all the ants currently in the colony
 	 * @return a list of all the ants currently in the colony
 	 */
-	public ArrayList<Ant> getAllAnts() {
+	public ArrayList<Ant> getAllAnts()
+	{
 		ArrayList<Ant> ants = new ArrayList<Ant>();
-		for (Place p : places) {
-			if (p.getAnt() != null) {
-				if (p.getAnt() instanceof ContainingAnt) { // check if the ant is a Containing ant
-					//	
-					if (((ContainingAnt) p.getAnt()).ObtainInsect() != null){ // if the above is true; check the encapsulated ant 
-						ants.add(((ContainingAnt) p.getAnt()).ObtainInsect());// get the encapsulated ant
-					}
-				}
-
+		for(Place p : places)
+		{
+			if(p.getAnt() != null)
 				ants.add(p.getAnt());
-			}
 		}
-			return ants;
-		}
-
+		return ants;
+	}
 	
 	/**
 	 * Returns a list of all the bees currently in the colony
@@ -174,8 +164,6 @@ public class AntColony
 		}
 		return bees;
 	}
-
-
 	
 	public String toString()
 	{
