@@ -5,7 +5,7 @@ import core.Bee;
 
 /**
  * An ant who throws leaves at bees
- * @author YOUR NAME HERE
+ * @author Anas Mudassar
  */
 public class ThrowerAnt extends Ant
 {
@@ -13,13 +13,13 @@ public class ThrowerAnt extends Ant
 	
 	/**
 	 * Creates a new Thrower Ant.
-	 * Armor: 1, Food: 0, Damage: 1
+	 * Armor: 1, Food: 4, Damage: 1
 	 */
 	public ThrowerAnt()
 	{
-		super(1);
-		this.damage = 1;
-		this.setFoodCost(4);
+		super(1); // This is Armor Value of the Ant
+		this.damage = 1; // This is Damage done by the Ant
+		this.setFoodCost(4); // This is Food required for the Ant
 	}
 	
 	/**
