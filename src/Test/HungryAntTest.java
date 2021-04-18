@@ -1,6 +1,8 @@
-package ants;
+package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import ants.HungryAnt;
 import core.Bee;
 import core.Place;
 import core.AntColony;
@@ -82,9 +84,6 @@ class HungryAntTest {
         place.addInsect(bee1);
         ha.action(colony);
         assertEquals(0,bee1.getArmor());
-
-
-
     }
     @Test
     void testHungryAntsWaitTimeBeforeAttackingAnotherBee(){

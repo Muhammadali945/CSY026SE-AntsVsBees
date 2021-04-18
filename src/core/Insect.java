@@ -7,6 +7,8 @@ package core;
  */
 public abstract class Insect
 {
+
+
 	protected int armor; //insect's current armor
 	protected Place place; //insect's current location
 	
@@ -22,7 +24,10 @@ public abstract class Insect
 		this.armor = armor;
 		this.place = place;
 	}
-	
+
+	public void setArmor(int armor) {
+		this.armor = armor;
+	}
 	/**
 	 * Creates an Insect with the given armor. The insect's location is null
 	 * @param armor The insect's armor
@@ -65,6 +70,7 @@ public abstract class Insect
 	 */
 	public void reduceArmor(int amount)
 	{
+		System.out.println("armor left of" + this + "is equal to" + armor);
 		this.armor -= amount;
 		if(this.armor <= 0)
 		{
