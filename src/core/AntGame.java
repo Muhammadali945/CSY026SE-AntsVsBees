@@ -1,5 +1,12 @@
 package core;
 
+import Audio.BackgroundMusic;
+import ants.ThrowerAnt;
+import ants.LongThrowerAnt;
+
+import javax.imageio.ImageIO;
+import javax.swing.Timer;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,17 +16,7 @@ import java.awt.geom.Path2D;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Scanner;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import Audio.BackgroundMusic;
-import ants.FireAnt;
-import ants.ThrowerAnt;
+import java.util.*;
 
 /**
  * A class that controls the graphical game of Ants vs. Some-Bees. Game simulation system and GUI interaction are intermixed.
@@ -195,6 +192,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 				if(ant instanceof ThrowerAnt) //if we're a thrower, might need to make a leaf!
 				{
 					Bee target = ((ThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
+					if(target != null)
+						createLeaf(ant, target);
+				}
+				//@author Anas Mudassar
+				//This code is for LongThrowerAnt to Attack on Bees
+				if(ant instanceof LongThrowerAnt) //if this is a thrower Ant, might need to throw a leaf!
+				{
+					Bee target = ((LongThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
 					if(target != null)
 						createLeaf(ant, target);
 				}
