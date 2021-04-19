@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.Random;
 import ants.BodyguardAnt;
 import ants.ContainingAnt;
 
@@ -29,8 +30,6 @@ public class AntColony
 	public AntColony(int numTunnels, int tunnelLength, int moatFrequency, int startingFood) {
 		//simulation values
 		this.food = startingFood;
-
-
 		//init variables
 		places = new ArrayList<Place>();
 		beeEntrances = new ArrayList<Place>();
@@ -41,29 +40,33 @@ public class AntColony
 		Place curr, prev; //reference to current exit of the tunnel
 		for (int tunnel = 0; tunnel < numTunnels; tunnel++) {
 			System.out.println(moatFrequency);
+			Random step_ran = new Random();
 			curr = queenPlace; //start the tunnel's at the queen
 			for (int step = 0; step < tunnelLength; step++) {
 				prev = curr;
-				if (moatFrequency <= 0 ) {
+				if (moatFrequency == 0) {
 					curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev); // create new place with an exit that is the previous spot
 					prev.setEntrance(curr); // the previous person's entrance is the new spot
 					places.add(curr); // add new place to the list
 				}
-
-				/**
-				 * @author Muhammad
-				 * This peice of code deals with the water presence
-				 */
-			if (moatFrequency!=0) {
-				if (moatFrequency == 1) {
-					System.out.println("water present");
-					curr = new Water("Water tunnel[" + tunnel + "-" + step + "]", prev); // create new place with an exit that is the previous spot
-					prev.setEntrance(curr); // the previous person's entrance is the new spot
-					places.add(curr); // add new place to the list
-
-				}
+				if (moatFrequency != 0) {//Check if moat freq is not zero before making any water places
+					if (moatFrequency == 1) { //make all the places as water places
+						curr = new Water("tunnel[" + tunnel + "-" + step + "]", prev); // create new place with an exit that is the previous spot
+						prev.setEntrance(curr); // the previous person's entrance is the new spot
+						places.add(curr); // add new place to the list
+					} else { // leave a gap between water places equal to the moat frequency
+						if (step % moatFrequency == 0) {
+							curr = new Water("tunnel[" + tunnel + "-" + step + "]", prev); // create new place with an exit that is the previous spot
+							prev.setEntrance(curr); // the previous person's entrance is the new spot
+							places.add(curr); // add new place to the list
+						} else {
+							curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev); // create new place with an exit that is the previous spot
+							prev.setEntrance(curr); // the previous person's entrance is the new spot
+							places.add(curr); // add new place to the list
+						}
+					}
+				}//
 			}
-			}moatFrequency--;
 			beeEntrances.add(curr); //current place is last item in the tunnel, so mark that it is a bee entrance
 		} //loop to next tunnel
 
