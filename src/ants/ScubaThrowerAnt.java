@@ -2,6 +2,7 @@ package ants;
 
 import core.AntColony;
 
+
 public class ScubaThrowerAnt extends ThrowerAnt{
 
     public  ScubaThrowerAnt(){
