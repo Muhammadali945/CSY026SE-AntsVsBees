@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Audio.BackgroundMusic;
-import ants.FireAnt;
+import ants.SlowThrowerAnt;
 import ants.ThrowerAnt;
 
 /**
@@ -133,14 +133,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		frame.pack();
 		frame.setVisible(true);
 
-		button1 = new JButton("pause"); // add pause button
-		button2 = new JButton("play"); // add a play button
+		button1 = new JButton("pause");
+		button2 = new JButton("play");
 		button1.addActionListener(this);
 		button2.addActionListener(this);
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.blue);
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		panel.add(button1); // add button to the new panel
+		panel.add(button1);
 		panel.add(button2);
 		frame.add(panel, BorderLayout.NORTH);
 
@@ -255,7 +255,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		{
 			//check for end condition before proceeding
 			if(colony.queenHasBees()) { //we lost!
-				BackgroundMusic laugh = new BackgroundMusic("/audio/laugh.wav"); // add music for lost
+				BackgroundMusic laugh = new BackgroundMusic("/audio/laugh.wav");
 				laugh.play();
 				JOptionPane.showMessageDialog(this, "The ant queen has perished! Please try again.", "Bzzzzz!", JOptionPane.PLAIN_MESSAGE);
 

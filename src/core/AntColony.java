@@ -1,7 +1,6 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.Random;
 import ants.BodyguardAnt;
 import ants.ContainingAnt;
 
@@ -14,12 +13,12 @@ public class AntColony
 {
 	public static final String QUEEN_NAME = "AntQueen"; //name of the Queen's place
 	public static final int MAX_TUNNEL_LENGTH = 8;
-
+	
 	private int food; //amount of food available
 	private Place queenPlace; //where the queen is
 	private ArrayList<Place> places; //the places in the colony
 	private ArrayList<Place> beeEntrances; //places which bees can enter (the starts of the tunnels)
-
+	
 	/**
 	 * Creates a new ant colony with the given layout.
 	 * @param numTunnels The number of tunnels (paths)
@@ -40,7 +39,7 @@ public class AntColony
 		Place curr, prev; //reference to current exit of the tunnel
 		for (int tunnel = 0; tunnel < numTunnels; tunnel++) {
 			System.out.println(moatFrequency);
-			Random step_ran = new Random();
+
 			curr = queenPlace; //start the tunnel's at the queen
 			for (int step = 0; step < tunnelLength; step++) {
 				prev = curr;
@@ -72,8 +71,6 @@ public class AntColony
 
 	}
 
-
-
 	/**
 	 * Returns an array of Places in this colony. Places are ordered by tunnel, with each tunnel's places listed start to end.
 	 * @return The tunnels in this colony
@@ -82,7 +79,7 @@ public class AntColony
 	{
 		return places.toArray(new Place[0]);
 	}
-
+	
 	/**
 	 * Returns an array of places that the bees can enter into the colony
 	 * @return Places the bees can enter
@@ -100,7 +97,7 @@ public class AntColony
 	{
 		return queenPlace;
 	}
-
+	
 	/**
 	 * Returns the amount of available food
 	 * @return the amount of available food
@@ -109,7 +106,7 @@ public class AntColony
 	{
 		return food;
 	}
-
+	
 	/**
 	 * Increases the amount of available food
 	 * @param amount The amount to increase by
@@ -118,7 +115,7 @@ public class AntColony
 	{
 		food += amount;
 	}
-
+	
 	/**
 	 * Returns if there are any bees in the queen's location (and so the game should be lost)
 	 * @return if there are any bees in the queen's location
@@ -127,12 +124,11 @@ public class AntColony
 	{
 		return this.queenPlace.getBees().length  > 0;
 	}
-
+	
 	//place an ant if there is enough food available
 	/**
 	 * Places the given ant in the given tunnel IF there is enough available food. Otherwise has no effect
 	 * If in case a bodyguard has to be added, it will check that already a bodyguard ant is not present at that place
-	 * After that, it will check whether the ant is water safe or not, if it is being deployed in water area
 	 * @param place Where to place the ant
 	 * @param ant The ant to place
 	 */
