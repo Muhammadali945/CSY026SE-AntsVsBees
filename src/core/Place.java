@@ -115,6 +115,9 @@ public class Place
 	
 	/**
 	 * Adds an ant to the place. If there is already an ant, this method has no effect
+	 * If the ant at this place is a bodyguard ant, it wont have any effect
+	 * If ant in the place is not a bodyguard, it calls the Encapsuale ant() method of
+	 * containing ants to set the "inacontaining" property of this ant to true and the  adds a containing ant to this place.
 	 * @param ant The ant to add to the place.
 	 */
 	public void addInsect(Ant ant)
@@ -124,6 +127,9 @@ public class Place
 			this.ant = ant;
 			ant.setPlace(this);
 		}
+		/**
+		 * @author Muhammad
+		 */
 		else if (this.ant != null && !(this.ant instanceof Containing) && ant instanceof Containing) {
 			if (((Containing) ant).EncapsulateAnt(this.ant)) {
 				this.ant = ant;
