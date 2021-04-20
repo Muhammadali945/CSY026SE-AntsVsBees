@@ -26,10 +26,7 @@ class ScubaThrowerAntTest {
     Place water = new Water("water",place);
     ScubaThrowerAnt sta = new ScubaThrowerAnt();
 
-    @Test
-    void action() {
-    }
-
+    
     @Test
     void isWaterSafe() {
         assertEquals(true,sta.waterSafe);

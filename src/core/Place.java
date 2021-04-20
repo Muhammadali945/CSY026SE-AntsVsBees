@@ -161,11 +161,17 @@ public class Place
 	 */
 	public void removeInsect(Ant ant)
 	{
-		if(this.ant == ant)
-		{
-			this.ant = null;
-			ant.setPlace(null);
+		if(this.ant == ant) {
+			if (this.ant instanceof ContainingAnt) {// first check if it is a bodyguard ant
+				this.ant = (((Containing) ant).ObtainInsect()); // get the ant which is protected by bodyguard
+				ant.setPlace(this); // replace this place by the actual ant behind the bodyguard ant
+			}
+			else{
+				this.ant = null;
+				ant.setPlace(null);
+			}
 		}
+
 		else
 			System.out.println(ant + " is not in "+this);
 	}
