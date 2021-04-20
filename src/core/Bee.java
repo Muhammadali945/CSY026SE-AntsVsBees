@@ -97,9 +97,7 @@ public class Bee extends Insect
 		 * This statement will check if the bee is attacked by SlowThrowerAnt
 		 * @author Anas Mudassar
 		 */
+
 		BeeAttack();
-
-
-
 	}
 }
