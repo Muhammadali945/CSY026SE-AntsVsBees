@@ -26,11 +26,9 @@ public class AntColony
 	 * @param moatFrequency The frequency of which moats (water areas) appear. 0 means that there are no moats
 	 * @param startingFood The starting food for this colony.
 	 */
-	public AntColony(int numTunnels, int tunnelLength, int moatFrequency, int startingFood)
-	{
+	public AntColony(int numTunnels, int tunnelLength, int moatFrequency, int startingFood) {
 		//simulation values
-		this.food = startingFood;		
-		
+		this.food = startingFood;
 		//init variables
 		places = new ArrayList<Place>();
 		beeEntrances = new ArrayList<Place>();
@@ -39,17 +37,34 @@ public class AntColony
 		tunnelLength = Math.min(tunnelLength, MAX_TUNNEL_LENGTH); //don't go off the screen!
 		//set up tunnels, as a kind of linked-list
 		Place curr, prev; //reference to current exit of the tunnel
-		for(int tunnel=0; tunnel<numTunnels; tunnel++)
-		{
+		for (int tunnel = 0; tunnel < numTunnels; tunnel++) {
+			System.out.println(moatFrequency);
+
 			curr = queenPlace; //start the tunnel's at the queen
-			for(int step=0; step<tunnelLength; step++)
-			{
-				prev = curr; //keep track of the previous guy (who we will exit to)
-
-				curr = new Place("tunnel["+tunnel+"-"+step+"]", prev); //create new place with an exit that is the previous spot
-
-				prev.setEntrance(curr); //the previous person's entrance is the new spot
-				places.add(curr); //add new place to the list
+			for (int step = 0; step < tunnelLength; step++) {
+				prev = curr;
+				if (moatFrequency == 0) {
+					curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev); // create new place with an exit that is the previous spot
+					prev.setEntrance(curr); // the previous person's entrance is the new spot
+					places.add(curr); // add new place to the list
+				}
+				if (moatFrequency != 0) {//Check if moat freq is not zero before making any water places
+					if (moatFrequency == 1) { //make all the places as water places
+						curr = new Water("tunnel[" + tunnel + "-" + step + "]", prev); // create new place with an exit that is the previous spot
+						prev.setEntrance(curr); // the previous person's entrance is the new spot
+						places.add(curr); // add new place to the list
+					} else { // leave a gap between water places equal to the moat frequency
+						if (step % moatFrequency == 0) {
+							curr = new Water("tunnel[" + tunnel + "-" + step + "]", prev); // create new place with an exit that is the previous spot
+							prev.setEntrance(curr); // the previous person's entrance is the new spot
+							places.add(curr); // add new place to the list
+						} else {
+							curr = new Place("tunnel[" + tunnel + "-" + step + "]", prev); // create new place with an exit that is the previous spot
+							prev.setEntrance(curr); // the previous person's entrance is the new spot
+							places.add(curr); // add new place to the list
+						}
+					}
+				}//
 			}
 			beeEntrances.add(curr); //current place is last item in the tunnel, so mark that it is a bee entrance
 		} //loop to next tunnel
@@ -117,15 +132,25 @@ public class AntColony
 	 * @param place Where to place the ant
 	 * @param ant The ant to place
 	 */
-	public void deployAnt(Place place, Ant ant)
-	{
-		if ((food >= ant.getFoodCost() && place.getAnt() == null) || (food >= ant.getFoodCost() && place.getAnt() instanceof ContainingAnt && !(ant instanceof ContainingAnt)) || (food >= ant.getFoodCost() && !(place.getAnt() instanceof ContainingAnt) && ant instanceof ContainingAnt))
-		{
-			this.food -= ant.getFoodCost();
-			place.addInsect(ant);
+	public void deployAnt(Place place, Ant ant) {
+		System.out.println(ant.isWaterSafe());
+
+		if ((food >= ant.getFoodCost() && place.getAnt() == null) || (food >= ant.getFoodCost() && place.getAnt() instanceof ContainingAnt && !(ant instanceof ContainingAnt)) || (food >= ant.getFoodCost() && !(place.getAnt() instanceof ContainingAnt) && ant instanceof ContainingAnt)) {
+			if (place instanceof Water && (ant.isWaterSafe())) {
+				System.out.println("from water side");
+					this.food -= ant.getFoodCost();
+					place.addInsect(ant);
+				} else if (place instanceof Water && (!(ant.isWaterSafe()))) {
+					System.out.println("This ant cannot swim");
+
+				} else {
+				System.out.println("from normal side");
+				this.food -= ant.getFoodCost();
+				place.addInsect(ant);
+			}
+		} else {
+			System.out.println("Not enough food remains to place " + ant);
 		}
-		else
-			System.out.println("Not enough food remains to place "+ant);
 	}
 
 	/**
@@ -149,7 +174,7 @@ public class AntColony
 				if (p.getAnt() instanceof ContainingAnt) { // check if the ant is a Containing ant
 					//	
 					if (((ContainingAnt) p.getAnt()).ObtainInsect() != null){ // if the above is true; check the encapsulated ant 
-						ants.add(((ContainingAnt) p.getAnt()).ObtainInsect());// get the encapsulated ant
+						ants.add(((ContainingAnt) p.getAnt()).ObtainInsect());// get the encapsulated ant so it performs same action of encapsulated ant
 					}
 				}
 

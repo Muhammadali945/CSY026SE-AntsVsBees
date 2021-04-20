@@ -11,7 +11,7 @@ public abstract class Ant extends Insect
 	public boolean blockingAnt;
 	private boolean isInAContaining;
 
-	
+
 	/**
 	 * Creates a new Ant, with a food cost of 0.
 	 * @param armor The armor of the ant.
@@ -21,6 +21,7 @@ public abstract class Ant extends Insect
 		super(armor, null);
 		blockingAnt = false; //default is false, only true for ninja ant
 		isInAContaining = false; //default is false
+		this.setWaterSafe(false); //default is false, meaning not water safe
 
 		//this.foodCost = 0;
 	}

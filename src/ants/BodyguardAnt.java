@@ -9,6 +9,7 @@ public class BodyguardAnt extends ContainingAnt implements Containing {
 
         super();
         this.setFoodCost(4);
+        this.setWaterSafe(true);
 
     }
     @Override

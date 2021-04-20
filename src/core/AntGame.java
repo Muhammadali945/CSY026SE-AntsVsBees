@@ -16,7 +16,16 @@ import java.awt.geom.Path2D;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+
 import java.util.*;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
+import Audio.BackgroundMusic;
+import ants.SlowThrowerAnt;
+import ants.ThrowerAnt;
+
 
 /**
  * A class that controls the graphical game of Ants vs. Some-Bees. Game simulation system and GUI interaction are intermixed.
@@ -358,10 +367,18 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 
 			g2d.setColor(Color.BLACK);
 			g2d.draw(rect); //border box (where to click)
-
+			/**
+			 * added water place to make it distinguishable from normal tunnels
+			 */
+			if(place instanceof Water)
+			{
+				g2d.setColor(Color.BLUE);  //Blue color to represent water
+				g2d.draw(rect);
+				//g2d.fill(rect);
+			}
 			if(place != tunnelEnd) //don't draw for queen location
-				g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null); //decorative image
-			
+			{g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null);} //decorative image
+
 			Ant ant = place.getAnt();
 			if(ant != null){ //draw the ant if we have one
 				Image img = ANT_IMAGES.get(ant.getClass().getName());
@@ -586,9 +603,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	{
 		if(e.getSource() == clock) //in case we want buttons later or something
 		{nextFrame();}
-		if(e.getSource() == button1)
+		if(e.getSource() == button1) //implement the pause game function
 		{clock.stop();}
-		if(e.getSource() == button2)
+		if(e.getSource() == button2)  //implements the play game function
 		{clock.restart();}
 
 	}
