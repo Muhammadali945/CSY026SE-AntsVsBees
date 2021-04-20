@@ -4,7 +4,7 @@ import core.Ant;
 import core.AntColony;
 import core.Bee;
 
-public class SlowThrowerAnt extends Ant {
+public class SlowThrowerAnt extends ThrowerAnt {
 
     protected int damage; // This is attack damage of the ant
 
@@ -15,7 +15,7 @@ public class SlowThrowerAnt extends Ant {
      */
     public SlowThrowerAnt()
     {
-        super(1); // Armour of Ant
+        super(); // Armour of Ant
         this.damage = 1; //Set Attack Damage of Ant
         this.setFoodCost(4); //Set Food Cost required for the Ant
     }
