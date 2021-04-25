@@ -34,7 +34,7 @@ public class SlowThrowerAnt extends Ant {
         {
             target.reduceArmor(this.damage); //This will reduce bee's armor
             target.attack = true;
-            target.turn = 0;
+            target.turn = 1;
         }
     }
 }
