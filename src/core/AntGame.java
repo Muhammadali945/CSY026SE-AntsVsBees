@@ -152,7 +152,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 
 
 
-		BackgroundMusic bgMusic = new BackgroundMusic("/Audio/sound.wav"); //load sound from directory
+		BackgroundMusic bgMusic = new BackgroundMusic("/Audio/sb_indreams.wav"); //load sound from directory
 		bgMusic.play();
 	}
 
@@ -374,7 +374,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			{
 				g2d.setColor(Color.BLUE);  //Blue color to represent water
 				g2d.draw(rect);
-				//2d.fill(rect);
+        add_levels_to_game
+				g2d.fill(rect);
+
 			}
 			if(place != tunnelEnd) //don't draw for queen location
 			{g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null);} //decorative image
