@@ -1,5 +1,7 @@
 package core;
 
+import ants.SlowThrowerAnt;
+
 /**
  * Represents a Bee
  * @author Anas Mudassar
@@ -7,8 +9,9 @@ package core;
 public class Bee extends Insect
 {
 	private static final int DAMAGE = 1;
-	private int turn; //This is turn used by the bee
+	public int turn; //This is turn used by the bee
 	public boolean attack; //This is to access the bee attack from SlowThrowerAnt
+	SlowThrowerAnt sl = new SlowThrowerAnt();
 	
 	/**
 	 * Creates a new bee with the given armor
@@ -57,6 +60,18 @@ public class Bee extends Insect
 		place.addInsect(this);
 	}
 
+	public void BeeAttack(){
+		if (this.isBlocked())
+		{
+			sting(this.place.getAnt());
+			//TurnCount(Turn() + 1); //This will increase the turn count after every turn
+		}
+		else if (this.armor > 0)
+		{
+			this.moveTo(this.place.getExit());
+			//TurnCount(Turn() + 1);
+		}
+	}
 	public void leavePlace()
 	{
 		this.place.removeInsect(this);
@@ -77,28 +92,26 @@ public class Bee extends Insect
 	 */
 	public void action(AntColony colony)
 	{
-		if (this.isBlocked())
-		{
-			sting(this.place.getAnt());
-			TurnCount(Turn() + 1); //This will increase the turn count after every turn
-		}
-		else if (this.armor > 0)
-		{
-			this.moveTo(this.place.getExit());
-			TurnCount(Turn() + 1);
-		}
+
 		/**
 		 * This statement will check if the bee is attacked by SlowThrowerAnt
 		 * @author Anas Mudassar
 		 */
-		else if (this.attack = true)
-		{
+		if (attack == true){
 			if (Turn()%2==0) //This will enable effect and slow bee for 2 turns
 			{
-				sting(this.place.getAnt());
+				BeeAttack();
 				TurnCount(Turn() + 1); //This will increase the turn count after every turn
 				attack = true; //This will enable the Slow Effect on Bee
 			}
+			else{
+				this.moveTo(this.place.getExit());
+				TurnCount(Turn() + 1); //This will increase the turn count after every turn
+				attack = true; //This will enable the Slow Effect on Bee
+			}
+		}
+		else {
+			BeeAttack();
 		}
 	}
 }

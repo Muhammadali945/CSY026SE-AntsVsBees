@@ -1,5 +1,12 @@
 package core;
 
+import Audio.BackgroundMusic;
+import ants.ThrowerAnt;
+import ants.LongThrowerAnt;
+
+import javax.imageio.ImageIO;
+import javax.swing.Timer;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,17 +16,16 @@ import java.awt.geom.Path2D;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Scanner;
+
+import java.util.*;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Audio.BackgroundMusic;
 import ants.SlowThrowerAnt;
 import ants.ThrowerAnt;
+
 
 /**
  * A class that controls the graphical game of Ants vs. Some-Bees. Game simulation system and GUI interaction are intermixed.
@@ -198,6 +204,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 					if(target != null)
 						createLeaf(ant, target);
 				}
+				//@author Anas Mudassar
+				//This code is for LongThrowerAnt to Attack on Bees
+				if(ant instanceof LongThrowerAnt) //if this is a thrower Ant, might need to throw a leaf!
+				{
+					Bee target = ((LongThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
+					if(target != null)
+						createLeaf(ant, target);
+				}
 					ant.action(colony); //take the action (actually completes the throw now)
 			}
 			
@@ -360,7 +374,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			{
 				g2d.setColor(Color.BLUE);  //Blue color to represent water
 				g2d.draw(rect);
+        add_levels_to_game
 				g2d.fill(rect);
+
 			}
 			if(place != tunnelEnd) //don't draw for queen location
 			{g2d.drawImage(TUNNEL_IMAGE, rect.x, rect.y, null);} //decorative image
