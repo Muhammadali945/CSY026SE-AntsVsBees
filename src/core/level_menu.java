@@ -1,21 +1,22 @@
 package core;
 
-import java.awt.EventQueue;
+import javafx.scene.paint.Color;
 
-import javax.swing.JFrame;
-import javax.swing.GroupLayout;
+import java.awt.*;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JRadioButton;
+import javax.swing.text.DefaultCaret;
 
 
-
-
-public class level_menu {
+public class level_menu  {
 
     private JFrame frame;
 
@@ -49,6 +50,7 @@ public class level_menu {
         frame = new JFrame();
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("AntVsSomeBees Menu");
 
         JButton btnPlay = new JButton("Play");
         btnPlay.addMouseListener(new MouseAdapter() {
@@ -58,7 +60,13 @@ public class level_menu {
             }
         });
 
-        JButton lblPlugYourHeadphones = new JButton("Guide Menu");
+        JButton GuideMenu = new JButton("Guide Menu");
+        GuideMenu.addActionListener(e -> {
+            System.out.println("hi");
+            createFrame();
+            
+
+        });
 
         JLabel lblLevel = new JLabel("LEVEL :");
 
@@ -82,7 +90,7 @@ public class level_menu {
         radioHard.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //core.AntsVsSomeBees.level = 2;
+                AntsVsSomeBees.level = 2;
             }
         });
 
@@ -106,7 +114,7 @@ public class level_menu {
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(radioPro)
 							.addPreferredGap(ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-							.addComponent(lblPlugYourHeadphones)
+							.addComponent(GuideMenu)
 							.addGap(68))
                     .addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -138,10 +146,49 @@ public class level_menu {
 							.addComponent(radioHard)
 							.addGap(28)))
                     .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPlugYourHeadphones)
+						.addComponent(GuideMenu)
 						.addComponent(radioPro))
                     .addGap(19))
                     );
 		frame.getContentPane().setLayout(groupLayout);
         }
+    public static void createFrame()
+    {
+        EventQueue.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                JFrame frame = new JFrame("Test");
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                try
+                {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                JPanel panel = new JPanel();
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                panel.setOpaque(true);
+                //TextArea textArea = new JTextArea(15, 50);
+                Image myPicture = null;
+                try {
+                    myPicture = ImageIO.read(new File("img/guide_menu.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+
+                panel.add(picLabel);
+                frame.getContentPane().add(BorderLayout.CENTER, panel);
+                frame.pack();
+                frame.setLocationByPlatform(true);
+                frame.setVisible(true);
+                frame.setResizable(true);
+
+            }
+        });
+    }
+
 }

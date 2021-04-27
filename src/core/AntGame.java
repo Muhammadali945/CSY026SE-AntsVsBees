@@ -374,7 +374,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			{
 				g2d.setColor(Color.BLUE);  //Blue color to represent water
 				g2d.draw(rect);
-        add_levels_to_game
+
 				g2d.fill(rect);
 
 			}

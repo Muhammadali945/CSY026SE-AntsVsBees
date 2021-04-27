@@ -22,5 +22,13 @@ public class AntsVsSomeBees
 			//Hive hive = Hive.makeInsaneHive();
 			new AntGame(colony, hive); //launch the game
 		}
+
+		else if (level == 2){
+			AntColony colony = new AntColony(3, 8, 2, 20); //specify the colony [tunnels, length, moats, food]
+			//Hive hive = Hive.makeTestHive(); //specify the attackers (the hive)
+			Hive hive = Hive.makeInsaneHive();
+			//Hive hive = Hive.makeInsaneHive();
+			new AntGame(colony, hive); //launch the game
+		}
 	}
 }
