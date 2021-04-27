@@ -3,7 +3,7 @@ package ants;
 import core.AntColony;
 import core.Bee;
 
-public class SlowThrowerAnt extends ThrowerAnt {
+public class StunThrowerAnt extends ThrowerAnt {
 
     protected int damage; // This is attack damage of the ant
 
@@ -12,11 +12,11 @@ public class SlowThrowerAnt extends ThrowerAnt {
      * @author Anas Mudassar
      * The armor of the ant.
      */
-    public SlowThrowerAnt()
+    public StunThrowerAnt()
     {
         super(); // Armour of Ant
         this.damage = 1; //Set Attack Damage of Ant
-        this.setFoodCost(4); //Set Food Cost required for the Ant
+        this.setFoodCost(6); //Set Food Cost required for the Ant
     }
 
     // This function is to get the targeted Bee
@@ -31,10 +31,11 @@ public class SlowThrowerAnt extends ThrowerAnt {
         Bee target = getTarget();
         if(target != null)
         {
-            target.reduceArmor(this.damage); //This will reduce bee's armor
-            target.attack = true;
+            //target.reduceArmor(this.damage); //This will reduce bee's armor
             target.turn = 1;
-            target.SlowEffect(1);
+            target.attack = true;
+            target.StunCount(1);
         }
     }
 }
+
