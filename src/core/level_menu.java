@@ -18,6 +18,7 @@ import javax.swing.text.DefaultCaret;
 
 public class level_menu  {
 
+
     private JFrame frame;
 
     /**
@@ -52,6 +53,7 @@ public class level_menu  {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("AntVsSomeBees Menu");
 
+
         JButton btnPlay = new JButton("Play");
         btnPlay.addMouseListener(new MouseAdapter() {
             @Override
@@ -69,6 +71,7 @@ public class level_menu  {
         });
 
         JLabel lblLevel = new JLabel("LEVEL :");
+
 
         JRadioButton radioEasy = new JRadioButton("Easy");
         radioEasy.addMouseListener(new MouseAdapter() {
@@ -98,7 +101,15 @@ public class level_menu  {
         radioPro.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //core.AntsVsSomeBees.level = 3;
+                AntsVsSomeBees.level = 3;
+            }
+        });
+
+        JButton gameExplaination = new JButton("How to play");
+        gameExplaination.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                createFrame2();
             }
         });
             GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -116,6 +127,7 @@ public class level_menu  {
 							.addPreferredGap(ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
 							.addComponent(GuideMenu)
 							.addGap(68))
+                            .addComponent(gameExplaination)
                     .addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(radioHard)
@@ -144,9 +156,11 @@ public class level_menu  {
 							.addComponent(radioMedium)
 							.addGap(30)
 							.addComponent(radioHard)
-							.addGap(28)))
+                            .addGap(20)
+                            .addComponent(radioPro)))
                     .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(GuideMenu)
+                        .addComponent(gameExplaination)
 						.addComponent(radioPro))
                     .addGap(19))
                     );
@@ -160,6 +174,7 @@ public class level_menu  {
             public void run()
             {
                 JFrame frame = new JFrame("Test");
+
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 try
                 {
@@ -179,7 +194,6 @@ public class level_menu  {
                 }
 
                 JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-
                 panel.add(picLabel);
                 frame.getContentPane().add(BorderLayout.CENTER, panel);
                 frame.pack();
@@ -189,6 +203,34 @@ public class level_menu  {
 
             }
         });
+    }
+    public static void createFrame2() {
+        JFrame frame = new JFrame("Test");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setOpaque(true);
+        //TextArea textArea = new JTextArea(15, 50);
+        Image myPicture = null;
+        try {
+            myPicture = ImageIO.read(new File("img/gui_explanation.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+
+        panel.add(picLabel);
+        frame.getContentPane().add(BorderLayout.CENTER, panel);
+        frame.pack();
+        frame.setLocationByPlatform(true);
+        frame.setVisible(true);
+        frame.setResizable(true);
     }
 
 }
