@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
-
 /**
  * A class that controls the graphical game of Ants vs. Some-Bees. Game simulation system and GUI interaction are intermixed.
  * 
@@ -209,6 +208,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 					if(target != null)
 						createLeaf(ant, target);
 				}
+
 				//@author Anas Mudassar
 				//This code is for LongThrowerAnt to Attack on Bees
 				if(ant instanceof LongThrowerAnt) //if this is a thrower Ant, might need to throw a leaf!
