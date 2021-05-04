@@ -3,11 +3,11 @@ package ants;
 import core.Ant;
 import core.AntColony;
 
-public class ContainingAnt extends Ant implements Containing {
+public class ContainingAnt extends Ant implements EncapsulationCharacter {
     private Ant containedAnt = null;
 
     public ContainingAnt(){
-        super(2);
+        super(2, 0);
         //this.setFoodCost(4);
     }
 

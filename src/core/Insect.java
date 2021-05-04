@@ -11,7 +11,10 @@ public abstract class Insect
 
 	protected int armor; //insect's current armor
 	protected Place place; //insect's current location
-	
+	public boolean waterSafe; // insect's ability to go in a water tunnel
+    public String name = "insect"; //insect's name @author Anas Mudassar
+
+
 	/**
 	 * Creates a new Insect with the given armor in the given location
 	 * @param armor The insect's armor
@@ -89,7 +92,15 @@ public abstract class Insect
 	 * @param colony The colony in which this action takes place (to support wide-spread effects)
 	 */
 	public abstract void action(AntColony colony);
-	
+
+	public boolean isWaterSafe() {
+		return waterSafe;
+	}
+
+	public void setWaterSafe(boolean waterSafe) {
+		this.waterSafe = waterSafe;
+	}
+
 	public String toString()
 	{
 		return this.getClass().getName()+"["+armor+", "+place+"]"; //supports inheritance!

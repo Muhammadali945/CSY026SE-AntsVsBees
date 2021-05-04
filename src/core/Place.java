@@ -1,6 +1,6 @@
 package core;
 
-import ants.Containing;
+import ants.EncapsulationCharacter;
 import ants.ContainingAnt;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class Place
 	private String name; //a name we can use for debugging
 	private Place exit; //where you leave this place to
 	private Place entrance; //where you enter this place from
-	private ArrayList<Bee> bees; //bees currently in the place
+	protected ArrayList<Bee> bees; //bees currently in the place
 	private Ant ant; //ant (singular) currently in the place
 	
 	/**
@@ -115,6 +115,9 @@ public class Place
 	
 	/**
 	 * Adds an ant to the place. If there is already an ant, this method has no effect
+	 * If the ant at this place is a bodyguard ant, it wont have any effect
+	 * If ant in the place is not a bodyguard, it calls the Encapsuale ant() method of
+	 * containing ants to set the "inacontaining" property of this ant to true and the  adds a containing ant to this place.
 	 * @param ant The ant to add to the place.
 	 */
 	public void addInsect(Ant ant)
@@ -124,8 +127,11 @@ public class Place
 			this.ant = ant;
 			ant.setPlace(this);
 		}
-		else if (this.ant != null && !(this.ant instanceof Containing) && ant instanceof Containing) {
-			if (((Containing) ant).EncapsulateAnt(this.ant)) {
+		/**
+		 * @author Muhammad
+		 */
+		else if (this.ant != null && !(this.ant instanceof EncapsulationCharacter) && ant instanceof EncapsulationCharacter) {
+			if (((EncapsulationCharacter) ant).EncapsulateAnt(this.ant)) {
 				this.ant = ant;
 				ant.setPlace(this);
 				System.out.println("A Bodyguard Ant has been placed in this " + this);
@@ -155,11 +161,17 @@ public class Place
 	 */
 	public void removeInsect(Ant ant)
 	{
-		if(this.ant == ant)
-		{
-			this.ant = null;
-			ant.setPlace(null);
+		if(this.ant == ant) {
+			if (this.ant instanceof ContainingAnt) {// first check if it is a bodyguard ant
+				this.ant = (((EncapsulationCharacter) ant).ObtainInsect()); // get the ant which is protected by bodyguard
+				ant.setPlace(this); // replace this place by the actual ant behind the bodyguard ant
+			}
+			else{
+				this.ant = null;
+				ant.setPlace(null);
+			}
 		}
+
 		else
 			System.out.println(ant + " is not in "+this);
 	}

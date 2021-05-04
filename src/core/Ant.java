@@ -10,18 +10,20 @@ public abstract class Ant extends Insect
 	protected int foodCost; //the amount of food needed to make this ant
 	public boolean blockingAnt;
 	private boolean isInAContaining;
+	protected int damage;
 
-	
+
 	/**
 	 * Creates a new Ant, with a food cost of 0.
 	 * @param armor The armor of the ant.
 	 */
-	public Ant(int armor)
+	public Ant(int armor, int damage)
 	{
 		super(armor, null);
 		blockingAnt = false; //default is false, only true for ninja ant
 		isInAContaining = false; //default is false
-
+		this.setWaterSafe(false); //default is false, meaning not water safe
+		this.damage = damage;
 		//this.foodCost = 0;
 	}
 

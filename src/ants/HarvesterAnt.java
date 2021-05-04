@@ -14,7 +14,7 @@ public class HarvesterAnt extends Ant
 	 */
 	public HarvesterAnt()
 	{
-		super(1);
+		super(1, 0);
 		this.setFoodCost(2);
 	}
 

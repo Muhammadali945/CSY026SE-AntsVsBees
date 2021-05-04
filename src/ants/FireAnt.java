@@ -1,8 +1,8 @@
 package ants;
 import core.*;
 
-import static core.Bee.DAMAGE;
-import static org.junit.Assert.assertEquals;
+
+//import static org.junit.Assert.assertEquals;
 
 /**
  * An ant who throws leaves at bees
@@ -12,7 +12,6 @@ import static org.junit.Assert.assertEquals;
 
 public class FireAnt extends Ant
 {
-    protected int damage;
 
     /*
      * Creates a new Fire Ant.
@@ -20,9 +19,8 @@ public class FireAnt extends Ant
      */
     public FireAnt()
     {
-        super(1);
+        super(1, 3);
         this.setFoodCost(4);
-        this.damage=3;
     }
 
     /**

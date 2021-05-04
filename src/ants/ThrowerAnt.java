@@ -9,7 +9,6 @@ import core.Bee;
  */
 public class ThrowerAnt extends Ant
 {
-	protected int damage;
 	
 	/**
 	 * Creates a new Thrower Ant.
@@ -17,9 +16,8 @@ public class ThrowerAnt extends Ant
 	 */
 	public ThrowerAnt()
 	{
-		super(1); // This is Armor Value of the Ant
-		this.damage = 1; // This is Damage done by the Ant
-		this.setFoodCost(4); // This is Food required for the Ant
+		super(1, 1);
+		this.setFoodCost(4);
 	}
 	
 	/**
@@ -36,7 +34,7 @@ public class ThrowerAnt extends Ant
 		Bee target = getTarget();
 		if(target != null)
 		{
-			target.reduceArmor(this.damage);
+			target.reduceArmor(super.damage);
 		}
 	}
 }
