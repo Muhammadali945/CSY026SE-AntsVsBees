@@ -17,7 +17,7 @@ public class HungryAnt extends Ant {
     private boolean digested; // is basically the time required for ant to digest the bee.
 
     public HungryAnt() {
-        super(1);
+        super(1, 0);
         this.setFoodCost(4);
         turn=0;
     }

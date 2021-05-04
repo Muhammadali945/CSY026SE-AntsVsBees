@@ -2,6 +2,7 @@ package core;
 
 import Audio.BackgroundMusic;
 import ants.LongThrowerAnt;
+import ants.QueenAnt;
 import ants.ThrowerAnt;
 
 import javax.imageio.ImageIO;
@@ -215,6 +216,23 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 					Bee target = ((LongThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
 					if(target != null)
 						createLeaf(ant, target);
+				}
+
+				/**@author Anas Mudassar
+				*This code is for QueenAnt to Attack on Bees and to Give Double Damage to Near Ants
+				**/
+				if(ant instanceof QueenAnt)
+				{
+					if(colony.queenbox.getQueenLocation().getEntrance().getAnt() != null) //This double the damage of the Ant from Entrance Point
+					{
+						colony.queenbox.getQueenLocation().getEntrance().getAnt().damage = colony.queenbox.getQueenLocation().getEntrance().getAnt().damage*2;
+						System.out.println("Damage Double from Entrance");
+					}
+					if(colony.queenbox.getQueenLocation().getExit().getAnt() != null) //This double the damage of the Ant from Exit Point
+					{
+						colony.queenbox.getQueenLocation().getExit().getAnt().damage = colony.queenbox.getQueenLocation().getExit().getAnt().damage*2;
+						System.out.println("Damage Double from Exit");
+					}
 				}
 					ant.action(colony); //take the action (actually completes the throw now)
 			}

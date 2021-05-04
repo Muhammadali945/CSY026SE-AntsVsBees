@@ -1,12 +1,9 @@
 package ants;
 
-import core.Ant;
 import core.AntColony;
 import core.Bee;
 
-public class SlowThrowerAnt extends Ant {
-
-    protected int damage; // This is attack damage of the ant
+public class SlowThrowerAnt extends ThrowerAnt {
 
     /**
      * Creates a new Ant, with a food cost of 4.
@@ -15,8 +12,7 @@ public class SlowThrowerAnt extends Ant {
      */
     public SlowThrowerAnt()
     {
-        super(1); // Armour of Ant
-        this.damage = 1; //Set Attack Damage of Ant
+        super(); // Armour of Ant
         this.setFoodCost(4); //Set Food Cost required for the Ant
     }
 
@@ -32,7 +28,7 @@ public class SlowThrowerAnt extends Ant {
         Bee target = getTarget();
         if(target != null)
         {
-            target.reduceArmor(this.damage); //This will reduce bee's armor
+            target.reduceArmor(super.damage); //This will reduce bee's armor
             target.attack = true;
             target.turn = 0;
         }

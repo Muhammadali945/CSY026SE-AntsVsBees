@@ -13,7 +13,6 @@ import core.AntColony;
  */
 public class QueenAnt extends ScubaThrowerAnt
 {
-    protected int damage;
 
     /**
      * Creates a new Queen Ant.
@@ -22,7 +21,6 @@ public class QueenAnt extends ScubaThrowerAnt
     public QueenAnt()
     {
         super(); //This is Armor value of the Ant
-        this.damage = 1; // This is Damage Value of the Ant
         this.setFoodCost(6); //This is the amount of food required for the Ant
         this.name = "QueenAnt1"; //This is the name of the Queen Ant
 

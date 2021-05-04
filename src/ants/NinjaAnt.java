@@ -8,7 +8,7 @@ public class NinjaAnt extends Ant{
 
 
     public NinjaAnt(){
-        super(1);
+        super(1, 1);
         this.setBlockingAnt(true);
         this.setFoodCost(6);
 
