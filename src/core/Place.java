@@ -1,6 +1,6 @@
 package core;
 
-import ants.Containing;
+import ants.EncapsulationCharacter;
 import ants.ContainingAnt;
 
 import java.util.ArrayList;
@@ -130,8 +130,8 @@ public class Place
 		/**
 		 * @author Muhammad
 		 */
-		else if (this.ant != null && !(this.ant instanceof Containing) && ant instanceof Containing) {
-			if (((Containing) ant).EncapsulateAnt(this.ant)) {
+		else if (this.ant != null && !(this.ant instanceof EncapsulationCharacter) && ant instanceof EncapsulationCharacter) {
+			if (((EncapsulationCharacter) ant).EncapsulateAnt(this.ant)) {
 				this.ant = ant;
 				ant.setPlace(this);
 				System.out.println("A Bodyguard Ant has been placed in this " + this);
@@ -163,7 +163,7 @@ public class Place
 	{
 		if(this.ant == ant) {
 			if (this.ant instanceof ContainingAnt) {// first check if it is a bodyguard ant
-				this.ant = (((Containing) ant).ObtainInsect()); // get the ant which is protected by bodyguard
+				this.ant = (((EncapsulationCharacter) ant).ObtainInsect()); // get the ant which is protected by bodyguard
 				ant.setPlace(this); // replace this place by the actual ant behind the bodyguard ant
 			}
 			else{

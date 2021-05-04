@@ -97,7 +97,21 @@ public class Bee extends Insect
 		 * This statement will check if the bee is attacked by SlowThrowerAnt
 		 * @author Anas Mudassar
 		 */
-
-		BeeAttack();
+		if (attack == true){
+			if (Turn()%2==0) //This will enable effect and slow bee for 2 turns
+			{
+				BeeAttack();
+				TurnCount(Turn() + 1); //This will increase the turn count after every turn
+				attack = true; //This will enable the Slow Effect on Bee
+			}
+			else{
+				this.moveTo(this.place.getExit());
+				TurnCount(Turn() + 1); //This will increase the turn count after every turn
+				attack = true; //This will enable the Slow Effect on Bee
+			}
+		}
+		else {
+			BeeAttack();
+		}
 	}
 }
