@@ -1,7 +1,5 @@
 package core;
 
-import ants.SlowThrowerAnt;
-
 /**
  * Represents a ZombieBee
  * @author Ahmed AL-KURDY
