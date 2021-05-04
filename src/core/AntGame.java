@@ -1,8 +1,9 @@
 package core;
 
 import Audio.BackgroundMusic;
-import ants.ThrowerAnt;
 import ants.LongThrowerAnt;
+import ants.QueenAnt;
+import ants.ThrowerAnt;
 
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
@@ -16,15 +17,7 @@ import java.awt.geom.Path2D;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-
 import java.util.*;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import Audio.BackgroundMusic;
-import ants.SlowThrowerAnt;
-import ants.ThrowerAnt;
 
 
 /**
@@ -185,6 +178,18 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	}
 
 	/**
+	 * @author Anas Mudassar
+	 * This function is the default code for end of the Game
+	 */
+	public void gameEnd()
+	{
+		BackgroundMusic laugh = new BackgroundMusic("/audio/laugh.wav");
+		laugh.play();
+		JOptionPane.showMessageDialog(this, "The ant queen has perished! Please try again.", "Bzzzzz!", JOptionPane.PLAIN_MESSAGE);
+
+		System.exit(0); //quit
+	}
+	/**
 	 * Runs the actual game, processing what occurs on every frame of the game (including individual turns).
 	 * This handles both some game logic (turn order) and animation control
 	 */
@@ -211,6 +216,23 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 					Bee target = ((LongThrowerAnt)ant).getTarget(); //who we'll throw at (really which square, but works out the same)
 					if(target != null)
 						createLeaf(ant, target);
+				}
+
+				/**@author Anas Mudassar
+				*This code is for QueenAnt to Attack on Bees and to Give Double Damage to Near Ants
+				**/
+				if(ant instanceof QueenAnt)
+				{
+					if(colony.queenbox.getQueenLocation().getEntrance().getAnt() != null) //This double the damage of the Ant from Entrance Point
+					{
+						colony.queenbox.getQueenLocation().getEntrance().getAnt().damage = colony.queenbox.getQueenLocation().getEntrance().getAnt().damage*2;
+						System.out.println("Damage Double from Entrance");
+					}
+					if(colony.queenbox.getQueenLocation().getExit().getAnt() != null) //This double the damage of the Ant from Exit Point
+					{
+						colony.queenbox.getQueenLocation().getExit().getAnt().damage = colony.queenbox.getQueenLocation().getExit().getAnt().damage*2;
+						System.out.println("Damage Double from Exit");
+					}
 				}
 					ant.action(colony); //take the action (actually completes the throw now)
 			}
@@ -239,7 +261,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 				}
 			}
 		}
-		
+
 		//every frame
 		for(AnimPosition pos : allBeePositions.values()) //apply animations to all the bees
 		{
@@ -269,12 +291,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		{
 			//check for end condition before proceeding
 			if(colony.queenHasBees()) { //we lost!
-				BackgroundMusic laugh = new BackgroundMusic("/audio/laugh.wav");
-				laugh.play();
-				JOptionPane.showMessageDialog(this, "The ant queen has perished! Please try again.", "Bzzzzz!", JOptionPane.PLAIN_MESSAGE);
-
-				System.exit(0); //quit
-
+				gameEnd();
 			}
 			if(hive.getBees().length + colony.getAllBees().size() == 0){ //no more bees--we won!
 				JOptionPane.showMessageDialog(this, "All bees are vanquished. You win!", "Yaaaay!", JOptionPane.PLAIN_MESSAGE);
@@ -469,7 +486,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		if(this.selectedAnt == null) {
 			g2d.setColor(Color.BLUE);
 			g2d.fill(removerArea);
-		}		
+		}
 		g2d.setColor(Color.BLACK);
 		g2d.draw(removerArea);
 		g2d.drawImage(REMOVER_IMAGE, removerArea.x+PANEL_PADDING.width, removerArea.y+PANEL_PADDING.height, null);

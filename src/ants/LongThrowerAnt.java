@@ -1,5 +1,4 @@
 package ants;
-import core.Ant;
 import core.AntColony;
 import core.Bee;
 
@@ -7,9 +6,8 @@ import core.Bee;
  * An ant who throws leaves at bees for Long distance
  * @author Anas Mudassar
  */
-public class LongThrowerAnt extends Ant
+public class LongThrowerAnt extends ThrowerAnt
 {
-    protected int damage;
 
     /**
      * Creates a new Long Thrower Ant.
@@ -17,8 +15,7 @@ public class LongThrowerAnt extends Ant
      */
     public LongThrowerAnt()
     {
-        super(1); //This is Armor value of the Ant
-        this.damage = 1; // This is Damage Value of the Ant
+        super(); //This is Armor value of the Ant
         this.setFoodCost(3); //This is the amount of food required for the Ant
     }
 
@@ -36,7 +33,7 @@ public class LongThrowerAnt extends Ant
         Bee target = getTarget();
         if(target != null)
         {
-            target.reduceArmor(this.damage);
+            target.reduceArmor(super.damage);
         }
     }
 }
