@@ -11,7 +11,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author ali
+ * @author muhammad
  * This class tests various functions of Ant colony class
  */
 class AntColonyTest {

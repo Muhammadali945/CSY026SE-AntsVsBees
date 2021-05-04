@@ -16,7 +16,7 @@ public class WallAnt extends Ant
      */
     public WallAnt()
     {
-        super(4);
+        super(4,0);
         this.setFoodCost(4);
     }
 

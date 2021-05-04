@@ -316,6 +316,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			if(rect.contains(pt)) {
 				if(selectedAnt == null){
 					colony.removeAnt(colonyAreas.get(rect));
+					System.out.println("ant removed");
 					return; //stop searching
 				}
 				else
