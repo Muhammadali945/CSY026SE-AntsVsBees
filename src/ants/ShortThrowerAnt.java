@@ -7,18 +7,15 @@ import core.Bee;
  * An ant who throws leaves at bees for short distance
  * @author Anas Mudassar
  */
-public class ShortThrowerAnt extends Ant
+public class ShortThrowerAnt extends ThrowerAnt
 {
-    protected int damage;
-
     /**
      * Creates a new Short Thrower Ant.
      * Armor: 1, Food: 3, Damage: 1
      */
     public ShortThrowerAnt()
     {
-        super(1); //This is Armor value of the Ant
-        this.damage = 1; // This is Damage Value of the Ant
+        super(); //This is Armor value of the Ant
         this.setFoodCost(3); //This is the amount of food required for the Ant
     }
 
@@ -36,7 +33,7 @@ public class ShortThrowerAnt extends Ant
         Bee target = getTarget();
         if(target != null)
         {
-            target.reduceArmor(this.damage);
+            target.reduceArmor(super.damage);
         }
     }
 }
