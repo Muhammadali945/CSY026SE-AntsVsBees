@@ -15,7 +15,9 @@ public class Hive extends Place
 
 	private int beeArmor; //armor for all the bees
 	private Map<Integer,Bee[]> waves; //a mapping from attack times to the list of bees that will charge in
-
+    /////////////////////////////////
+	private Map<Integer,Zombie[]> wavesZ;
+	//////////////////////////////////
 	/**
 	 * Creates a new hive, in which Bees have the given armor
 	 * @param beeArmor The armor of the bees
@@ -48,6 +50,24 @@ public class Hive extends Place
 		}
 		return wave; //return who invaded
 	}	
+
+//	///////////////////////////////////////////////////
+	public Zombie[] invadeZ(AntColony colony, int currentTime)
+	{
+		Place[] exits = colony.getZombieEntrances();
+
+		Zombie[] wave = wavesZ.get(currentTime);
+		if(wave == null)
+			return new Zombie[0]; //return empty set if no bees attacking now
+
+		for(Zombie b : wave) //move all the bees in
+		{
+			int randExit = (int)(Math.random()*exits.length);
+			b.moveTo(exits[randExit]); //move b to a random exit from the hive (entrance to the colony)
+		}
+		return wave; //return who invaded
+	}
+	//////////////////////////////////////////////////
 
 	/**
 	 * Adds a wave of attacking bees to this hive

@@ -19,7 +19,9 @@ public class AntColony
 	private ArrayList<Place> places; //the places in the colony
 	private ArrayList<Place> beeEntrances; //places which bees can enter (the starts of the tunnels)
 	QueenBox queenbox; //QueenBox the location of QueenAnt @author Anas Mudassar
-	
+	////////////////////////////
+	private ArrayList<Place> zombieEntrances; //places which zombies can enter (the starts of the tunnels)
+	/////////////////////////////
 	/**
 	 * Creates a new ant colony with the given layout.
 	 * @param numTunnels The number of tunnels (paths)
@@ -87,8 +89,20 @@ public class AntColony
 	 */
 	public Place[] getBeeEntrances()
 	{
+
 		return beeEntrances.toArray(new Place[0]);
 	}
+
+	/////////////////////////////////////////////////////////////////
+	/**
+	 * Returns an array of places that the zombies can enter into the colony
+	 * @return Places the zombies can enter
+	 */
+	public Place[] getZombieEntrances() //
+	{
+		return zombieEntrances.toArray(new Place[0]);
+	}
+	/////////////////////////////////////////////////////////////////
 
 	/**
 	 * Returns the queen's location
@@ -238,11 +252,26 @@ public class AntColony
 		}
 		return bees;
 	}
+//////////////////////////////////////////////////////////////////
+	/**
+	 * Returns a list of all the zombies currently in the colony
+	 * @return a list of all the zombies currently in the colony
+	 */
+	public ArrayList<Zombie> getAllZombies() {
+	ArrayList<Zombie> zombies = new ArrayList<Zombie>();
+	for(Place p : places)
+	{
+		for(Zombie b : p.getZombies())
+			zombies.add(b);
+	}
+	return zombies;
+}
+////////////////////////////////////////////////////////////////////
 
 
-	
 	public String toString()
 	{
 		return "Food: "+this.food+"; "+getAllBees() + "; "+getAllAnts();
 	}	
+
 }

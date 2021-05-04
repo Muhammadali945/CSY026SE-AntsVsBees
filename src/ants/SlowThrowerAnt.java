@@ -2,6 +2,7 @@ package ants;
 
 import core.AntColony;
 import core.Bee;
+import core.Zombie;
 
 public class SlowThrowerAnt extends ThrowerAnt {
 
@@ -24,6 +25,12 @@ public class SlowThrowerAnt extends ThrowerAnt {
         return place.getClosestBee(0,3);
     }
 
+    //////////////////////////////
+    public Zombie getTargetZ()
+    {
+        return place.getClosestZombie(0,3);
+    }
+    //////////////////////////////
     //This is the action done by the Ant against the Bees
     public void action(AntColony colony)
     {

@@ -17,7 +17,7 @@ public class Place
 	private Place entrance; //where you enter this place from
 	protected ArrayList<Bee> bees; //bees currently in the place
 	private Ant ant; //ant (singular) currently in the place
-	
+	private ArrayList<Zombie> zombies; //Zombies currently in place
 	/**
 	 * Creates a new place with the given name and exit
 	 * @param name The place's name
@@ -29,6 +29,7 @@ public class Place
 		this.exit = exit;
 		this.entrance = null;
 		this.bees = new ArrayList<Bee>();
+		this.zombies=new ArrayList<Zombie>(); //recently added to constructor
 		this.ant = null;
 	}
 	
@@ -58,7 +59,16 @@ public class Place
 	{
 		return bees.toArray(new Bee[0]);
 	}
-	
+
+	/**
+	 * Returns an array of the place's bees
+	 * @return an array of the place's bees
+	 */
+	public Zombie[] getZombies()
+	{
+		return zombies.toArray(new Zombie[0]);
+	}
+
 	/**
 	 * Returns a nearby bee, up to the maxDistance ahead. If multiple bees are the same distance, a random bee is chosen
 	 * @param minDistance The minimum distance away (in Places) a bee can be. A value of -1 means no min distance
@@ -76,7 +86,29 @@ public class Place
 		}
 		return null;
 	}
-	
+	////////////////////////////////////////////////////////////////
+	/**
+	 * Author: Ahmed AL-KURDY
+	 * Returns a nearby zombie, up to the maxDistance ahead. If multiple zombie are the same distance, a random zombie is chosen
+	 * @param minDistance The minimum distance away (in Places) a zombie can be. A value of -1 means no min distance
+	 * @param maxDistance The maximum distance away (in Places) a Zombie can be. A value of -1 means no max distance
+	 * @return A random nearby Zombie.
+	 */
+
+
+	public Zombie getClosestZombie(int minDistance, int maxDistance)
+	{
+		Place p = this;
+		for(int dist = 0; p!=null && dist <= maxDistance; dist++)
+		{
+			if(dist >= minDistance && p.zombies.size() > 0)
+				return p.zombies.get((int)(Math.random()*p.zombies.size())); //pick a random bee
+			p = p.entrance;
+		}
+		return null;
+	}
+
+	////////////////////////////////////////////////////////////////
 	/**
 	 * Returns the name of the place
 	 * @return the name of the place
@@ -155,6 +187,16 @@ public class Place
 		bee.setPlace(this);
 	}	
 
+	//Adds a zombie to the place.
+
+	public void addInsectZ(Zombie zombie)
+	{
+		zombies.add(zombie);
+		zombie.setPlace(this);
+	}
+
+
+
 	/**
 	 * Removes the ant from the place. If the given ant is not in this place, this method has no effect
 	 * @param ant The ant to remove from the place
@@ -190,7 +232,26 @@ public class Place
 		else
 			System.out.println(bee + " is not in "+this);
 	}
-	
+	////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Removes the zombie from the place. If the given zombie is not in this place, this method has no effect
+	 * @param zombie The zombie to remove from the place.
+	 */
+	public void removeInsectZ(Zombie zombie)
+	{
+		if(zombies.contains(zombie))
+		{
+			zombies.remove(zombie);
+			zombie.setPlace(null);
+		}
+		else
+			System.out.println(zombie + " is not in "+this);
+	}
+	/////////////////////////////////////////////////////////////////////////////
+
+
+
+
 	public String toString()
 	{
 		return name;

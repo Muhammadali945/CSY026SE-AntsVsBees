@@ -1,6 +1,7 @@
 package ants;
 import core.AntColony;
 import core.Bee;
+import core.Zombie;
 
 /**
  * An ant who throws leaves at bees for Long distance
@@ -28,6 +29,12 @@ public class LongThrowerAnt extends ThrowerAnt
         return place.getClosestBee(0,4);
     }
 
+    ////////////////////////////////////////////
+    public Zombie getTargetZ()
+    {
+        return place.getClosestZombie(0,4);
+    }
+    ////////////////////////////////////////////
     public void action(AntColony colony)
     {
         Bee target = getTarget();

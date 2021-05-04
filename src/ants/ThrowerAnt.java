@@ -2,6 +2,7 @@ package ants;
 import core.Ant;
 import core.AntColony;
 import core.Bee;
+import core.Zombie;
 
 /**
  * An ant who throws leaves at bees
@@ -9,7 +10,7 @@ import core.Bee;
  */
 public class ThrowerAnt extends Ant
 {
-	
+	Zombie zombie;
 	/**
 	 * Creates a new Thrower Ant.
 	 * Armor: 1, Food: 4, Damage: 1
@@ -28,7 +29,14 @@ public class ThrowerAnt extends Ant
 	{
 		return place.getClosestBee(0,3);
 	}
-	
+	///////////////////////////////////
+	public Zombie getTargetZ()
+	{
+		return place.getClosestZombie(0,3);
+	}
+	//////////////////////////////////
+
+
 	public void action(AntColony colony)
 	{
 		Bee target = getTarget();
