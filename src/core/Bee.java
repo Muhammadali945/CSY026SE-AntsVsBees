@@ -151,6 +151,7 @@ public class Bee extends Insect
 				else {
 					BeeAttack(); //Normal Bee Attack
 				}
+	
 			}
 		}
 		else {

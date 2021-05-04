@@ -12,7 +12,6 @@ import core.*;
 
 public class FireAnt extends Ant
 {
-    protected int damage;
 
     /*
      * Creates a new Fire Ant.
@@ -20,9 +19,8 @@ public class FireAnt extends Ant
      */
     public FireAnt()
     {
-        super(1);
+        super(1, 3);
         this.setFoodCost(4);
-        this.damage=3;
     }
 
     /**

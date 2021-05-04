@@ -5,7 +5,6 @@ import core.Bee;
 
 public class SlowThrowerAnt extends ThrowerAnt {
 
-    protected int damage; // This is attack damage of the ant
 
     /**
      * Creates a new Ant, with a food cost of 4.
@@ -15,7 +14,7 @@ public class SlowThrowerAnt extends ThrowerAnt {
     public SlowThrowerAnt()
     {
         super(); // Armour of Ant
-        this.damage = 1; //Set Attack Damage of Ant
+
         this.setFoodCost(4); //Set Food Cost required for the Ant
     }
 
@@ -31,7 +30,7 @@ public class SlowThrowerAnt extends ThrowerAnt {
         Bee target = getTarget();
         if(target != null)
         {
-            target.reduceArmor(this.damage); //This will reduce bee's armor
+            target.reduceArmor(super.damage); //This will reduce bee's armor
             target.attack = true;
             target.turn = 1;
             target.SlowEffect(1);
