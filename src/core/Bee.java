@@ -10,6 +10,8 @@ public class Bee extends Insect
 {
 	private static final int DAMAGE = 1;
 	public int turn; //This is turn used by the bee
+	public int stun; //This is used for StunThrowerAnt
+	public int slow; //This is used for SlowThrowerAnt
 	public boolean attack; //This is to access the bee attack from SlowThrowerAnt
 	SlowThrowerAnt sl = new SlowThrowerAnt();
 	
@@ -20,7 +22,7 @@ public class Bee extends Insect
 	public Bee(int armor)
 	{
 		super(armor);
-		turn=0; //initialising the turn
+		//turn=0; //initialising the turn
 		attack = false; //by default attack will be false
 	}
 
@@ -41,6 +43,30 @@ public class Bee extends Insect
 	{
 		this.turn =c;
 	}
+
+	/**
+	 * This function is to set the value of Stun Effect
+	 * @author Anas Mudassar
+	 */
+	public void StunCount(int c)
+	{
+		if (this.stun < c){
+			this.stun = c;
+		}
+
+	}
+
+	/**
+	 * This function is to set the value of Slow Effect
+	 * @author Anas Mudassar
+	 */
+	public void SlowEffect(int c)
+	{
+		if (this.slow < c){
+			this.slow = c;
+		}
+	}
+
 	/**
 	 * Deals damage to the given ant
 	 * @param ant The ant to sting
@@ -60,6 +86,9 @@ public class Bee extends Insect
 		place.addInsect(this);
 	}
 
+	/**
+	 * This is the Default Bee Attack
+	 */
 	public void BeeAttack(){
 		if (this.isBlocked())
 		{
@@ -94,20 +123,35 @@ public class Bee extends Insect
 	{
 
 		/**
-		 * This statement will check if the bee is attacked by SlowThrowerAnt
+		 * This statement will check if the bee is attacked by SlowThrowerAnt or StunThrowerAnt
 		 * @author Anas Mudassar
 		 */
-		if (attack == true){
-			if (Turn()%2==0) //This will enable effect and slow bee for 2 turns
-			{
-				BeeAttack();
-				TurnCount(Turn() + 1); //This will increase the turn count after every turn
-				attack = true; //This will enable the Slow Effect on Bee
+		if (attack == true) //This line recoganize that if BEE is attacked by a Slow or Stun Ant
+		{
+			if (this.slow == 1) {
+				if (Turn() % 3 == 0) //This will enable effect and slow bee for 3 turns
+				{
+					BeeAttack();
+					TurnCount(Turn() + 1); //This will increase the turn count after every turn
+					attack = true; //This will enable the Slow Effect on Bee
+				}
+				else{
+					this.moveTo(this.place.getExit()); //This will move bee to next box
+					TurnCount(Turn() + 1); //This will increase the turn count after every turn
+					attack = true; //This will enable the Slow Effect on Bee
+				}
 			}
-			else{
-				this.moveTo(this.place.getExit());
-				TurnCount(Turn() + 1); //This will increase the turn count after every turn
-				attack = true; //This will enable the Slow Effect on Bee
+			else if (this.stun == 1)
+			{
+				if (Turn()%2==1) //This line will Stun Bee for 1 Turn
+				{
+					TurnCount(Turn() + 1); //This will increase the turn count after every turn
+					attack = false; //This will remove the Stun Effect on Bee if not attacked again by a stun ant
+				}
+				else {
+					BeeAttack(); //Normal Bee Attack
+				}
+	
 			}
 		}
 		else {
