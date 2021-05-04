@@ -43,6 +43,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	private Timer clock;
 	private JButton button1;
 	private JButton button2;
+	private JButton mute;
+	private JButton music;
+	private BackgroundMusic bgMusic;
 	
 	//ant properties (laoded from external files, stored as member variables)
 	private final ArrayList<String> ANT_TYPES;
@@ -97,7 +100,10 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		this.frame = 0;
 		this.turn = 0;
 		this.clock = new Timer(1000/FPS, this);
-				
+		this.bgMusic = new BackgroundMusic("/Audio/sb_indreams.wav"); //load sound from directory
+
+
+
 		//member ant property storage variables
 		ANT_TYPES = new ArrayList<String>();
 		ANT_IMAGES = new HashMap<String,Image>();
@@ -131,21 +137,24 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		frame.pack();
 		frame.setVisible(true);
 
-		button1 = new JButton("pause");
-		button2 = new JButton("play");
+		button1 = new JButton("Pause");
+		button2 = new JButton("Play");
+		mute = new JButton("Mute"); //Text of Mute Button
+		music = new JButton("Music"); //Text of Music Button
 		button1.addActionListener(this);
 		button2.addActionListener(this);
+		mute.addActionListener(this);
+		music.addActionListener(this);
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.blue);
 		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		panel.add(button1);
 		panel.add(button2);
+		panel.add(mute); //Adding Mute Button
+		panel.add(music); //Adding Music Button
 		frame.add(panel, BorderLayout.NORTH);
-
-
-
-		BackgroundMusic bgMusic = new BackgroundMusic("/Audio/sb_indreams.wav"); //load sound from directory
 		bgMusic.play();
+
 	}
 
 	public void paintComponent(Graphics g)
@@ -626,15 +635,26 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		{clock.stop();}
 		if(e.getSource() == button2)  //implements the play game function
 		{clock.restart();}
-
+		/**
+		 * @author Anas Mudassar
+		 * This is for adding Mute Button to stop Background Music
+		 * And to add Music Button to Start Background Music
+		 */
+		if(e.getSource() == mute){
+        	bgMusic.stop();
+		}
+		if(e.getSource() == music){
+			bgMusic.play();
+		}
 	}
 	
 	public void mousePressed(MouseEvent event)
 	{
 		handleClick(event); //pass to synchronized method for thread safety!
 		this.repaint(); //request a repaint
-		if(!clock.isRunning())
+		if(!clock.isRunning()) {
 			clock.start();
+		}
 	}
 
 	public void mouseClicked(MouseEvent e){}
