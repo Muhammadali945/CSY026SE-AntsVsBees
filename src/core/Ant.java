@@ -48,6 +48,15 @@ public abstract class Ant extends Insect
 	{
 		 this.foodCost = foodCost;
 	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
 	/**
 	 * Removes the ant from its current place
 	 */

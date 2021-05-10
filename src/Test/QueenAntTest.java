@@ -1,10 +1,8 @@
 package Test;
 
 import ants.QueenAnt;
-import core.AntColony;
-import core.Bee;
-import core.Place;
-import core.Water;
+import ants.ThrowerAnt;
+import core.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,9 +18,13 @@ class QueenAntTest {
 
     AntColony col = new AntColony(1,6,0,20); //Creates a new Colony
     Place pl = new Place("place"); //Creates a new place for insects
+    QueenBox QB = new QueenBox("Queen");
+    Place placeExit = new Place("placeExit", QB);
     Place water = new Water("water",pl); //Creates Water in Colony
     QueenAnt qa = new QueenAnt(); // Initializing the QueenAnt
     Bee bee = new Bee(3); // Initializing the Bee
+    ThrowerAnt ta = new ThrowerAnt(); // Initialize other ant
+    AntGame game = new AntGame(col, Hive.makeFullHive() );
 
 
     /**
@@ -66,5 +68,30 @@ class QueenAntTest {
         pl.addInsect(bee); //This will add a Bee in the Colony
         qa.action(col); //This is the Attack made by the Queen Ant
         assertEquals(2, bee.getArmor()); //This is the Bee Armor value should left after the attack
+        //assertEquals(2,ta.getDamage());
+    }
+
+    /**
+     * @ author Muhammad
+     * This test will check whether Queen Ant increases the damage of other ants in same place
+     */
+    @Test
+    void checkOtherAntsIncreasedDamage(){
+
+        placeExit.addInsect(qa);
+        pl.addInsect(ta);
+        placeExit.addInsect(bee);
+        ta.action(col);
+        assertEquals(1,bee.getArmor());
+    }
+
+    @Test
+    void QueenAntDies(){
+        col.deployAnt(QB,qa);
+        col.deployAnt(placeExit, ta);
+        QB.setQueenLocation(QB, col);
+        QB.addInsect(bee);
+        bee.action(col);
+        assertEquals(true,col.queenHasBees());
     }
 }

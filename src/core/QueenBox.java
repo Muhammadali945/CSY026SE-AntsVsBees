@@ -15,6 +15,7 @@ public class QueenBox extends Place {
     public QueenBox (String Name){
         super(Name);
     }
+    //public QueenBox (String Name, Place exit) {super((Name,Exit));}
 
     /**
      * Check the Bees locations throughout the colony

@@ -201,7 +201,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	 * Runs the actual game, processing what occurs on every frame of the game (including individual turns).
 	 * This handles both some game logic (turn order) and animation control
 	 */
-	private void nextFrame()
+	public void nextFrame()
 	{
 		if(frame == 0) //at the start of a turn
 		{
@@ -300,6 +300,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		{
 			//check for end condition before proceeding
 			if(colony.queenHasBees()) { //we lost!
+				System.out.println("lost");
 				gameEnd();
 			}
 			if(hive.getBees().length + colony.getAllBees().size() == 0){ //no more bees--we won!
