@@ -1,7 +1,7 @@
 package core;
 
 import ants.EncapsulationCharacter;
-import ants.ContainingAnt;
+import ants.CoverAnt;
 
 import java.util.ArrayList;
 
@@ -162,7 +162,7 @@ public class Place
 	public void removeInsect(Ant ant)
 	{
 		if(this.ant == ant) {
-			if (this.ant instanceof ContainingAnt) {// first check if it is a bodyguard ant
+			if (this.ant instanceof CoverAnt) {// first check if it is a bodyguard ant
 				this.ant = (((EncapsulationCharacter) ant).ObtainInsect()); // get the ant which is protected by bodyguard
 				ant.setPlace(this); // replace this place by the actual ant behind the bodyguard ant
 			}

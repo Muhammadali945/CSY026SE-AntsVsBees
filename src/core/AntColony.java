@@ -1,6 +1,6 @@
 package core;
 
-import ants.ContainingAnt;
+import ants.CoverAnt;
 import ants.QueenAnt;
 
 import java.util.ArrayList;
@@ -127,13 +127,14 @@ public class AntColony
 	}
 
 	/**
-	 * @author Anas Mudassar
+	 * @author Muhammad
 	 * This is the Default Ant Deploy Function
 	 * @param place
 	 * @param ant
 	 */
 	public void placeAnt(Place place, Ant ant){
-		if ((food >= ant.getFoodCost() && place.getAnt() == null) || (food >= ant.getFoodCost() && place.getAnt() instanceof ContainingAnt && !(ant instanceof ContainingAnt)) || (food >= ant.getFoodCost() && !(place.getAnt() instanceof ContainingAnt) && ant instanceof ContainingAnt)) {
+		if ((food >= ant.getFoodCost() && place.getAnt() == null) || (food >= ant.getFoodCost() && place.getAnt() instanceof CoverAnt
+				&& !(ant instanceof CoverAnt)) || (food >= ant.getFoodCost() && !(place.getAnt() instanceof CoverAnt) && ant instanceof CoverAnt)) {
 			if (place instanceof Water && (ant.isWaterSafe())) {
 				System.out.println("from water side");
 				this.food -= ant.getFoodCost();
@@ -210,10 +211,10 @@ public class AntColony
 		ArrayList<Ant> ants = new ArrayList<Ant>();
 		for (Place p : places) {
 			if (p.getAnt() != null) {
-				if (p.getAnt() instanceof ContainingAnt) { // check if the ant is a Containing ant
+				if (p.getAnt() instanceof CoverAnt) { // check if the ant is a Containing ant
 					//	
-					if (((ContainingAnt) p.getAnt()).ObtainInsect() != null){ // if the above is true; check the encapsulated ant 
-						ants.add(((ContainingAnt) p.getAnt()).ObtainInsect());// get the encapsulated ant so it performs same action of encapsulated ant
+					if (((CoverAnt) p.getAnt()).ObtainInsect() != null){ // if the above is true; check the encapsulated ant
+						ants.add(((CoverAnt) p.getAnt()).ObtainInsect());// get the encapsulated ant so it performs same action of encapsulated ant
 					}
 				}
 

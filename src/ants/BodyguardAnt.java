@@ -2,7 +2,7 @@ package ants;
 
 import core.AntColony;
 
-public class BodyguardAnt extends ContainingAnt implements EncapsulationCharacter {
+public class BodyguardAnt extends CoverAnt implements EncapsulationCharacter {
 
     public BodyguardAnt(){
 
