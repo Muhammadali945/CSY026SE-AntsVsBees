@@ -1,17 +1,33 @@
 package Bees;
 
+import core.Ant;
 import core.AntColony;
 import core.Bee;
 import core.Place;
 
-public class GhostBee extends Bee{
+public class GhostBee extends Bee {
     /**
      * Creates a new bee with the given armor
      *
      * @param armor The bee's armor
      */
     public GhostBee(int armor) {
-        super(armor);
+        super(3);
+    }
+
+    public void leavePlace()
+    {
+        this.place.removeGhostInsect(this);
+    }
+
+    public boolean isBlocked()
+    {
+        return this.place.getAnt() != null;
+    }
+
+    public void sting(Ant ant)
+    {
+        ant.reduceArmor(0);
     }
 
     public void GhostMoveTo(Place place)
@@ -24,6 +40,7 @@ public class GhostBee extends Bee{
     {
         //super.moveTo(super.place.getExit()); //This will move bee to next box
        super.action(colony);
-        //GhostMoveTo(this.place.getExit());
+       // GhostMoveTo(this.place.getExit());
+
     }
 }

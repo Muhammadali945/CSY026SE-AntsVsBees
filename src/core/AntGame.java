@@ -56,7 +56,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	//other images (stored as member variables)
 	private final Image TUNNEL_IMAGE = ImageUtils.loadImage("img/tunnel.gif");	
 	private final Image BEE_IMAGE = ImageUtils.loadImage("img/bee.gif");
-	private final Image GHBEE_IMAGE = ImageUtils.loadImage("img/QBee.gif");
+	private final Image GHBEE_IMAGE = ImageUtils.loadImage("img/GBee.gif");
 	private final Image REMOVER_IMAGE = ImageUtils.loadImage("img/remover.gif");
 	
 	//positioning constants
@@ -261,6 +261,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 
 			for(GhostBee gbee : colony.getAllGhostBees())
 			{
+				//gbee.moveTo(gbee.place.getExit());
 				gbee.action(colony);
 				startGhostAnimation(gbee); //start up animation for the bee if needed
 			}
@@ -302,10 +303,10 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 				pos.step();
 		}
 
-		for(AnimPosition pos : allGhostBeePositions.values()) //apply animations to all the bees
+		for(AnimPosition pos1 : allGhostBeePositions.values()) //apply animations to all the bees
 		{
-			if(pos.framesLeft > 0)
-				pos.step();
+			if(pos1.framesLeft > 0)
+				pos1.step();
 		}
 		Iterator<AnimPosition> iter = leaves.iterator(); //apply animations ot all the leaves
 		while(iter.hasNext()) { //iterator so we can remove when finished
@@ -385,13 +386,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	//Specifies and starts an animation for a Bee (moving to a particular place)
 	private void startAnimation(Bee b)
 	{
-		AnimPosition anim = allBeePositions.get(b);
-		if(anim.framesLeft == 0) //if not already animating
+		AnimPosition animb = allBeePositions.get(b);
+		if(animb.framesLeft == 0) //if not already animating
 		{
 			Rectangle rect = colonyRects.get(b.getPlace()); //where we want to go to
-			if(rect != null && !rect.contains(anim.x, anim.y)) //if we're not in our target place
-				anim.animateTo(rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, FPS*TURN_SECONDS);
+			if(rect != null && !rect.contains(animb.x, animb.y)) //if we're not in our target place
+				animb.animateTo(rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, FPS*TURN_SECONDS);
 		}
+
 	}
 
 	//Specifies and starts an animation for a Bee (moving to a particular place)
@@ -401,7 +403,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		if(anim.framesLeft == 0) //if not already animating
 		{
 			Rectangle rect = colonyRects.get(gb.getPlace()); //where we want to go to
-			if(rect != null && !rect.contains(anim.x, anim.y)) //if we're not in our target place
+			//if(rect != null && !rect.contains(anim.x, anim.y)) //if we're not in our target place
 				anim.animateTo(rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, FPS*TURN_SECONDS);
 		}
 	}

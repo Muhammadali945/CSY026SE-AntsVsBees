@@ -16,6 +16,7 @@ public class Hive extends Place
 	public static final String NAME = "Hive";
 
 	private int beeArmor; //armor for all the bees
+	private int GbeeArmor; //armor for all the Ghost bees
 	private Map<Integer,Bee[]> waves; //a mapping from attack times to the list of bees that will charge in
 	private Map<Integer,GhostBee[]> gwaves;
 
@@ -27,6 +28,7 @@ public class Hive extends Place
 	{
 		super(NAME, null);
 		this.beeArmor = beeArmor;
+		this.GbeeArmor = GbeeArmor;
 		this.waves = new HashMap<Integer, Bee[]>();
 		this.gwaves = new HashMap<Integer, GhostBee[]>();
 	}
@@ -105,7 +107,7 @@ public class Hive extends Place
 	{
 		GhostBee[] gbees = new GhostBee[numBees];
 		for(int i=0; i<gbees.length; i++){
-			gbees[i] = new GhostBee(beeArmor);
+			gbees[i] = new GhostBee(GbeeArmor);
 			this.addGhostInsect(gbees[i]); //put the bee in Place
 		}
 		gwaves.put(attackTime,gbees);
@@ -125,6 +127,17 @@ public class Hive extends Place
 		}
 		return bees.toArray(new Bee[0]);
 	}
+
+	public GhostBee[] getAllGhostBees()
+	{
+		ArrayList<GhostBee> gbees = new ArrayList<GhostBee>(); //easy temp work
+		for(GhostBee[] gwave : gwaves.values())
+		{
+			for(int i=0; i<gwave.length; i++)
+				gbees.add(gwave[i]);
+		}
+		return gbees.toArray(new GhostBee[0]);
+	}
 	
 	/////////////////////////////////
 	// Convenience factory methods //
@@ -143,13 +156,13 @@ public class Hive extends Place
 	}
 
 	public static Hive NormalBee(){
-		Hive hive = new Hive(3);
-		hive.addWave(2,1);
+		Hive hive1 = new Hive(3);
+		hive1.addWave(2,1);
 		for(int i=3; i<15; i+=2) {
-			hive.addWave(i, 1);
-			hive.addWave(15, 8);
+			hive1.addWave(i, 1);
+			hive1.addWave(15, 8);
 		}
-		return hive;
+		return hive1;
 	}
 
 	public static Hive GhostBee(){
@@ -160,15 +173,31 @@ public class Hive extends Place
 		hive.addGhostWave(15,4);
 		return hive;
 	}
+
 	/**
 	 * Makes a hive filled with attacking bees
 	 * @return A filled hive
 	 */
 	public static Hive makeFullHive()
 	{
-		//NormalBee();
-		Hive hive = GhostBee();
+		//Hive[] hive = new Hive[2];
+		//hive[0] = GhostBee();
+		//hive[1] = NormalBee();
+		Hive hive = new Hive(3);
+		hive.addWave(2,1);
+		hive.addGhostWave(4,1);
+		for(int i=3; i<15; i+=2) {
+			hive.addWave(i, 1);
+			hive.addWave(15, 8);
+
+			for(int j=3; j<15; j+=4) {
+				hive.addGhostWave(j,1);
+				hive.addGhostWave(25,4);
+			}
+		}
+
 		return hive;
+
 	}
 
 	/**
