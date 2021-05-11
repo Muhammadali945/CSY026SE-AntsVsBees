@@ -1,5 +1,7 @@
 package core;
 
+import Bees.GhostBee;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +17,7 @@ public class Hive extends Place
 
 	private int beeArmor; //armor for all the bees
 	private Map<Integer,Bee[]> waves; //a mapping from attack times to the list of bees that will charge in
+	private Map<Integer,GhostBee[]> gwaves;
 
 	/**
 	 * Creates a new hive, in which Bees have the given armor
@@ -25,6 +28,7 @@ public class Hive extends Place
 		super(NAME, null);
 		this.beeArmor = beeArmor;
 		this.waves = new HashMap<Integer, Bee[]>();
+		this.gwaves = new HashMap<Integer, GhostBee[]>();
 	}
 	
 	/**
@@ -32,7 +36,7 @@ public class Hive extends Place
 	 * @param colony The colony to attack
 	 * @param currentTime The current time
 	 * @return An array of the bees who invaded (for animation/processing)
-	 */
+
 	public Bee[] invade(AntColony colony, int currentTime)
 	{
 		Place[] exits = colony.getBeeEntrances();
@@ -47,7 +51,40 @@ public class Hive extends Place
 			b.moveTo(exits[randExit]); //move b to a random exit from the hive (entrance to the colony)
 		}
 		return wave; //return who invaded
-	}	
+	}
+	*/
+
+	public Bee[] invade(AntColony colony, int currentTime)
+	{
+		Place[] exits = colony.getBeeEntrances();
+
+		Bee[] wave = waves.get(currentTime);
+		if(wave == null)
+			return new Bee[0]; //return empty set if no bees attacking now
+
+		for(Bee b : wave) //move all the bees in
+		{
+			int randExit = (int)(Math.random()*exits.length);
+			b.moveTo(exits[randExit]); //move b to a random exit from the hive (entrance to the colony)
+		}
+		return wave; //return who invaded
+	}
+
+	public GhostBee[] invade2(AntColony colony, int currentTime)
+	{
+		Place[] exits = colony.getBeeEntrances();
+
+		GhostBee[] gwave = gwaves.get(currentTime);
+		if(gwave == null)
+			return new GhostBee[0]; //return empty set if no bees attacking now
+
+		for(GhostBee gb : gwave) //move all the bees in
+		{
+			int randExit = (int)(Math.random()*exits.length);
+			gb.moveTo(exits[randExit]); //move b to a random exit from the hive (entrance to the colony)
+		}
+		return gwave; //return who invaded
+	}
 
 	/**
 	 * Adds a wave of attacking bees to this hive
@@ -62,6 +99,16 @@ public class Hive extends Place
 			this.addInsect(bees[i]); //put the bee in Place
 		}
 		waves.put(attackTime,bees);
+	}
+
+	public void addGhostWave(int attackTime, int numBees)
+	{
+		GhostBee[] gbees = new GhostBee[numBees];
+		for(int i=0; i<gbees.length; i++){
+			gbees[i] = new GhostBee(beeArmor);
+			this.addGhostInsect(gbees[i]); //put the bee in Place
+		}
+		gwaves.put(attackTime,gbees);
 	}
 	
 	/**
@@ -95,17 +142,32 @@ public class Hive extends Place
 		return hive;
 	}
 
+	public static Hive NormalBee(){
+		Hive hive = new Hive(3);
+		hive.addWave(2,1);
+		for(int i=3; i<15; i+=2) {
+			hive.addWave(i, 1);
+			hive.addWave(15, 8);
+		}
+		return hive;
+	}
+
+	public static Hive GhostBee(){
+		Hive hive = new Hive(3);
+		hive.addGhostWave(2,1);
+		for(int i=3; i<15; i+=2)
+			hive.addGhostWave(i,1);
+		hive.addGhostWave(15,4);
+		return hive;
+	}
 	/**
 	 * Makes a hive filled with attacking bees
 	 * @return A filled hive
 	 */
 	public static Hive makeFullHive()
 	{
-		Hive hive = new Hive(3);
-		hive.addWave(2,1);
-		for(int i=3; i<15; i+=2)
-			hive.addWave(i,1);
-		hive.addWave(15,8);
+		//NormalBee();
+		Hive hive = GhostBee();
 		return hive;
 	}
 

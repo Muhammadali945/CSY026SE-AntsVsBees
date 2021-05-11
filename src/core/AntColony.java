@@ -1,5 +1,6 @@
 package core;
 
+import Bees.GhostBee;
 import ants.ContainingAnt;
 import ants.QueenAnt;
 
@@ -239,10 +240,20 @@ public class AntColony
 		return bees;
 	}
 
+	public ArrayList<GhostBee> getAllGhostBees()
+	{
+		ArrayList<GhostBee> gbees = new ArrayList<GhostBee>();
+		for(Place p : places)
+		{
+			for(GhostBee gb : p.getGhostBees())
+				gbees.add(gb);
+		}
+		return gbees;
+	}
 
 	
 	public String toString()
 	{
-		return "Food: "+this.food+"; "+getAllBees() + "; "+getAllAnts();
+		return "Food: "+this.food+"; "+getAllBees() + "; "+getAllGhostBees() + "; "+getAllAnts();
 	}	
 }

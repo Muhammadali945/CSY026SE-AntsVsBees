@@ -1,5 +1,6 @@
 package core;
 
+import Bees.GhostBee;
 import ants.EncapsulationCharacter;
 import ants.ContainingAnt;
 
@@ -16,6 +17,7 @@ public class Place
 	private Place exit; //where you leave this place to
 	private Place entrance; //where you enter this place from
 	protected ArrayList<Bee> bees; //bees currently in the place
+	protected ArrayList<GhostBee> ghbees; //bees currently in the place
 	private Ant ant; //ant (singular) currently in the place
 	
 	/**
@@ -29,6 +31,7 @@ public class Place
 		this.exit = exit;
 		this.entrance = null;
 		this.bees = new ArrayList<Bee>();
+		this.ghbees = new ArrayList<GhostBee>();
 		this.ant = null;
 	}
 	
@@ -58,6 +61,11 @@ public class Place
 	{
 		return bees.toArray(new Bee[0]);
 	}
+
+	public GhostBee[] getGhostBees()
+	{
+		return ghbees.toArray(new GhostBee[0]);
+	}
 	
 	/**
 	 * Returns a nearby bee, up to the maxDistance ahead. If multiple bees are the same distance, a random bee is chosen
@@ -72,6 +80,18 @@ public class Place
 		{
 			if(dist >= minDistance && p.bees.size() > 0)
 				return p.bees.get((int)(Math.random()*p.bees.size())); //pick a random bee
+			p = p.entrance;
+		}
+		return null;
+	}
+
+	public GhostBee getClosestGhostBee(int minDistance, int maxDistance)
+	{
+		Place p = this;
+		for(int dist = 0; p!=null && dist <= maxDistance; dist++)
+		{
+			if(dist >= minDistance && p.ghbees.size() > 0)
+				return p.ghbees.get((int)(Math.random()*p.ghbees.size())); //pick a random bee
 			p = p.entrance;
 		}
 		return null;
@@ -153,7 +173,14 @@ public class Place
 	{
 		bees.add(bee);
 		bee.setPlace(this);
-	}	
+	}
+
+	public void addGhostInsect(GhostBee ghbee)
+	{
+		ghbees.add(ghbee);
+		ghbee.setPlace(this);
+	}
+
 
 	/**
 	 * Removes the ant from the place. If the given ant is not in this place, this method has no effect
@@ -190,7 +217,18 @@ public class Place
 		else
 			System.out.println(bee + " is not in "+this);
 	}
-	
+
+	public void removeGhostInsect(GhostBee ghbee)
+	{
+		if(ghbees.contains(ghbee))
+		{
+			ghbees.remove(ghbee);
+			ghbee.setPlace(null);
+		}
+		else
+			System.out.println(ghbee + " is not in "+this);
+	}
+
 	public String toString()
 	{
 		return name;

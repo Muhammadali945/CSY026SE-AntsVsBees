@@ -1,6 +1,7 @@
 package core;
 
 import Audio.BackgroundMusic;
+import Bees.GhostBee;
 import ants.LongThrowerAnt;
 import ants.QueenAnt;
 import ants.ThrowerAnt;
@@ -55,6 +56,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	//other images (stored as member variables)
 	private final Image TUNNEL_IMAGE = ImageUtils.loadImage("img/tunnel.gif");	
 	private final Image BEE_IMAGE = ImageUtils.loadImage("img/bee.gif");
+	private final Image GHBEE_IMAGE = ImageUtils.loadImage("img/QBee.gif");
 	private final Image REMOVER_IMAGE = ImageUtils.loadImage("img/remover.gif");
 	
 	//positioning constants
@@ -83,6 +85,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 
 	//variables tracking animations
 	private Map<Bee,AnimPosition> allBeePositions; //maps from Bee to an object storing animation status
+	private Map<GhostBee,AnimPosition> allGhostBeePositions; //maps from Bee to an object storing animation status
 	private ArrayList<AnimPosition> leaves; //leaves we're animating
 	
 	/**
@@ -112,7 +115,9 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 
 		//tracking bee animations
 		allBeePositions = new HashMap<Bee, AnimPosition>();
+		allGhostBeePositions = new HashMap<GhostBee, AnimPosition>();
 		initializeBees();
+		initializeGhostBees();
 		leaves = new ArrayList<AnimPosition>();
 		
 		//map clickable areas to what they refer to. Might be more efficient to use separate components, but this keeps everything together
@@ -176,6 +181,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 				
 		drawColony(g2d);		
 		drawBees(g2d);
+		drawGhostBees(g2d);
 		drawLeaves(g2d);
 		
 		if(!clock.isRunning()){ //start text
@@ -252,11 +258,21 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 				bee.action(colony);
 				startAnimation(bee); //start up animation for the bee if needed
 			}
+
+			for(GhostBee gbee : colony.getAllGhostBees())
+			{
+				gbee.action(colony);
+				startGhostAnimation(gbee); //start up animation for the bee if needed
+			}
 			
 			//new invaders attack!
 			Bee[] invaders = hive.invade(colony, turn); //this moves the bees into the colony
 			for(Bee bee : invaders) //animate the movement
 				startAnimation(bee);
+
+			GhostBee[] invaders2 = hive.invade2(colony, turn); //this moves the bees into the colony
+			for(GhostBee ghbee : invaders2) //animate the movement
+				startGhostAnimation(ghbee);
 
 			//if want to do this to ants as well, will need to start storing dead ones with AnimPositions
 		}
@@ -269,10 +285,24 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 					pos.animateTo((int)pos.x, CRYPT_HEIGHT, FPS*TURN_SECONDS);
 				}
 			}
+
+			for(Map.Entry<GhostBee,AnimPosition> entry : allGhostBeePositions.entrySet()) //remove dead bees
+			{
+				if(entry.getKey().getArmor() <= 0){ //if dead bee
+					AnimPosition pos = entry.getValue();
+					pos.animateTo((int)pos.x, CRYPT_HEIGHT, FPS*TURN_SECONDS);
+				}
+			}
 		}
 
 		//every frame
 		for(AnimPosition pos : allBeePositions.values()) //apply animations to all the bees
+		{
+			if(pos.framesLeft > 0)
+				pos.step();
+		}
+
+		for(AnimPosition pos : allGhostBeePositions.values()) //apply animations to all the bees
 		{
 			if(pos.framesLeft > 0)
 				pos.step();
@@ -302,7 +332,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 			if(colony.queenHasBees()) { //we lost!
 				gameEnd();
 			}
-			if(hive.getBees().length + colony.getAllBees().size() == 0){ //no more bees--we won!
+			if((hive.getGhostBees().length + colony.getAllGhostBees().size() == 0) && (hive.getBees().length + colony.getAllBees().size() == 0)){ //no more bees--we won!
 				JOptionPane.showMessageDialog(this, "All bees are vanquished. You win!", "Yaaaay!", JOptionPane.PLAIN_MESSAGE);
 				System.exit(0); //quit
 			}
@@ -363,7 +393,19 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 				anim.animateTo(rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, FPS*TURN_SECONDS);
 		}
 	}
-	
+
+	//Specifies and starts an animation for a Bee (moving to a particular place)
+	private void startGhostAnimation(GhostBee gb)
+	{
+		AnimPosition anim = allGhostBeePositions.get(gb);
+		if(anim.framesLeft == 0) //if not already animating
+		{
+			Rectangle rect = colonyRects.get(gb.getPlace()); //where we want to go to
+			if(rect != null && !rect.contains(anim.x, anim.y)) //if we're not in our target place
+				anim.animateTo(rect.x + PLACE_PADDING.width, rect.y + PLACE_PADDING.height, FPS*TURN_SECONDS);
+		}
+	}
+
 	//Creates a new leaf (animated) from the Ant source to the Bee target.
 	//Note that really only cares about the target's Place (Ant can target other Bees in same Place)
 	private void createLeaf(Ant source, Bee target)
@@ -422,6 +464,14 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		for(AnimPosition pos : allBeePositions.values()) //go through all the Bee positions
 		{
 			g2d.drawImage(BEE_IMAGE, (int)pos.x, (int)pos.y, null); //draw a bee at that position!
+		}
+	}
+
+	private void drawGhostBees(Graphics2D g2d)
+	{
+		for(AnimPosition pos : allGhostBeePositions.values()) //go through all the Bee positions
+		{
+			g2d.drawImage(GHBEE_IMAGE, (int)pos.x, (int)pos.y, null);
 		}
 	}
 	
@@ -541,6 +591,20 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		for(int i=0; i<bees.length; i++)
 		{
 			allBeePositions.put(bees[i], 
+					new AnimPosition( (int)(HIVE_POS.x+(20*Math.random()-10)), (int)(HIVE_POS.y +(100*Math.random()-50)) )
+			);
+		}
+	}
+
+	/**
+	 * Initializes the Bee graphics for the game. Sets up positions for animations
+	 */
+	private void initializeGhostBees()
+	{
+		GhostBee[] gbees = this.hive.getGhostBees();
+		for(int i=0; i<gbees.length; i++)
+		{
+			allGhostBeePositions.put(gbees[i],
 					new AnimPosition( (int)(HIVE_POS.x+(20*Math.random()-10)), (int)(HIVE_POS.y +(100*Math.random()-50)) )
 			);
 		}
