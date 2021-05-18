@@ -5,8 +5,8 @@ import core.AntColony;
 import core.Bee;
 
 
-/*
- * @ author Ali
+/**
+ * @ author Muhammad
  * Hungry ants waits for the bee to come ot itslef as it has to eat it.
  * After eating the bee, it waits for the next three turns so that it can digest the bee.
  * @Params turn : This increases in every action. When it becomes a multiple of three, the condition for ant to attack becomes true.

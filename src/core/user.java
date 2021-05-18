@@ -2,6 +2,11 @@ package core;
 
 import java.io.Serializable;
 
+/**
+ * @author Muhammad
+ * Class to save user who play the game.
+ */
+
 public class user implements Serializable {
     private static final long serialVersionUID = 1L;
 

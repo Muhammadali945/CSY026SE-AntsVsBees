@@ -136,14 +136,14 @@ public class AntColony
 		if ((food >= ant.getFoodCost() && place.getAnt() == null) || (food >= ant.getFoodCost() && place.getAnt() instanceof CoverAnt
 				&& !(ant instanceof CoverAnt)) || (food >= ant.getFoodCost() && !(place.getAnt() instanceof CoverAnt) && ant instanceof CoverAnt)) {
 			if (place instanceof Water && (ant.isWaterSafe())) {
-				System.out.println("from water side");
+				System.out.println("from water place");
 				this.food -= ant.getFoodCost();
 				place.addInsect(ant);
 			} else if (place instanceof Water && (!(ant.isWaterSafe()))) {
-				System.out.println("This ant cannot swim");
+				System.out.println("ant unable to swim");
 
 			} else {
-				System.out.println("from normal side");
+				System.out.println("from normal place");
 				this.food -= ant.getFoodCost();
 				place.addInsect(ant);
 			}
@@ -211,6 +211,7 @@ public class AntColony
 	/**
 	 * Returns a list of all the ants currently in the colony
 	 * @return a list of all the ants currently in the colony
+	 * @author Muhammad
 	 */
 	public ArrayList<Ant> getAllAnts() {
 		ArrayList<Ant> ants = new ArrayList<Ant>();

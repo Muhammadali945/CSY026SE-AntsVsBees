@@ -100,7 +100,7 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 		this.frame = 0;
 		this.turn = 0;
 		this.clock = new Timer(1000/FPS, this);
-		this.bgMusic = new BackgroundMusic("/Audio/sb_indreams.wav"); //load sound from directory
+		this.bgMusic = new BackgroundMusic("/Audio/sb_indreams.wav"); //load sound from folder "Audio"
 
 
 
@@ -633,6 +633,10 @@ public class AntGame extends JPanel implements ActionListener, MouseListener
 	{
 		if(e.getSource() == clock) //in case we want buttons later or something
 		{nextFrame();}
+		/**
+		 * @author Muhammad
+		 * This piece of code has been added for adding play/pause functionality
+		 */
 		if(e.getSource() == button1) //implement the pause game function
 		{clock.stop();}
 		if(e.getSource() == button2)  //implements the play game function

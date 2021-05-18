@@ -27,10 +27,10 @@ public class run_game {
     public run_game() {
 
         try {
-            uList.addMultipleCustomer(uList.readCustomerList());
+            uList.addMultipleUser(uList.readUserList());
 
 
-//        System.out.println(cList.showCustomer(0));
+//        System.out.println(cList.showUser(0));
         } catch (ClassNotFoundException | IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -48,7 +48,7 @@ public class run_game {
                 } else {
                     user = new user(nameTextField.getText(), password);
                     //System.out.println(user.getUserName());
-                    uList.addCustomer(user);
+                    uList.addUser(user);
                     try {
                         userList.writeToFile(uList);
                     } catch (IOException event) {
@@ -67,7 +67,7 @@ public class run_game {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    uList = userList.readCustomerList();
+                    uList = userList.readUserList();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 } catch (ClassNotFoundException classNotFoundException) {
@@ -84,7 +84,7 @@ public class run_game {
 
                     for (int i = 0; i < uList.getSize(); i++) {
                         //System.out.println(nameTextField.getText());
-                        if ((uList.showCustomer(i).getUserName().equals(nameTextField.getText())) && (password.equals((uList.showCustomer(i).getPassword())))) {
+                        if ((uList.showUser(i).getUserName().equals(nameTextField.getText())) && (password.equals((uList.showUser(i).getPassword())))) {
                             message.setText("Opening Application");
                             core.level_menu.play();
                             break;

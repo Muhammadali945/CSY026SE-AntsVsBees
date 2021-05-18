@@ -161,6 +161,7 @@ public class Place
 	/**
 	 * Removes the ant from the place. If the given ant is not in this place, this method has no effect
 	 * @param ant The ant to remove from the place
+	 * @author Muhammad
 	 */
 	public void removeInsect(Ant ant)
 	{

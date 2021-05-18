@@ -5,24 +5,21 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.LineBorder;
-import javax.swing.text.DefaultCaret;
 
-
+/**
+ * @author Muhammad
+ * This class has a static method "play()" which is called when login credentials are authenticated.
+ * The player can choose which level of game he/she wants to play
+ * There are buttons for viewing "Guide menu" and "How to play" as well
+ *
+ */
 public class level_menu  {
-
-
     private JFrame frame;
-
-    /**
-     * Launch the application.
-     */
     public static void play(){
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -47,7 +44,7 @@ public class level_menu  {
      * Initialize the contents of the frame.
      */
 
-
+//This is the default page for selection of level and navigation buttons to open new page fro viewing the guide menu
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(0, 0, 600, 350);
@@ -55,10 +52,10 @@ public class level_menu  {
         frame.setTitle("AntVsSomeBees Menu");
 
 
-        JButton btnPlay = new JButton("Play");
+        JButton btnPlay = new JButton("Play Game");
         btnPlay.setForeground(Color.red);
-        btnPlay.setBorder(new LineBorder(Color.BLACK));
-        btnPlay.setContentAreaFilled(true);
+        Font newButtonFont=new Font(btnPlay.getFont().getName(),btnPlay.getFont().getStyle(),16);
+        btnPlay.setFont(newButtonFont);
         btnPlay.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
@@ -70,12 +67,12 @@ public class level_menu  {
         JButton GuideMenu = new JButton("Guide Menu");
         GuideMenu.addActionListener(e -> {
             System.out.println("hi");
-            createFrame();
+            openGuideMenuFrame();
             
 
         });
 
-        JLabel lblLevel = new JLabel("LEVEL :");
+        JLabel lblLevel = new JLabel("SELECT LEVEL :");
 
 
         JRadioButton radioEasy = new JRadioButton("Easy");
@@ -83,10 +80,10 @@ public class level_menu  {
             @Override
             public void mouseClicked(MouseEvent e) {
                 AntsVsSomeBees.level = 0;
-
             }
         });
 
+        // choose radio button for level of the game
         JRadioButton radioMedium = new JRadioButton("Medium");
         radioMedium.addMouseListener(new MouseAdapter() {
             @Override
@@ -115,7 +112,7 @@ public class level_menu  {
         gameExplaination.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                createFrame2();
+                openHowToPlayFrame();
             }
         });
             GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -142,7 +139,7 @@ public class level_menu  {
 										.addComponent(radioEasy)
 										.addComponent(radioMedium))
                     .addPreferredGap(ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-									.addComponent(btnPlay, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(btnPlay, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap())))
                     );
 		groupLayout.setVerticalGroup(
@@ -153,7 +150,7 @@ public class level_menu  {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-							.addComponent(btnPlay, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnPlay, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
 							.addGap(73))
                     .addGroup(groupLayout.createSequentialGroup()
 							.addGap(32)
@@ -172,14 +169,16 @@ public class level_menu  {
                     );
 		frame.getContentPane().setLayout(groupLayout);
         }
-    public static void createFrame()
+        // loads guide menu images and adds to a new frame
+    //@author Muhammad
+    public static void openGuideMenuFrame()
     {
         EventQueue.invokeLater(new Runnable()
         {
             @Override
             public void run()
             {
-                JFrame frame = new JFrame("Test");
+                JFrame frame = new JFrame("Guide Menu");
 
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 try
@@ -210,8 +209,11 @@ public class level_menu  {
             }
         });
     }
-    public static void createFrame2() {
-        JFrame frame = new JFrame("Test");
+
+    // laods a new frame and attaches gui_explaination image to it
+    //@author Muhammad
+    public static void openHowToPlayFrame() {
+        JFrame frame = new JFrame("How to Play");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

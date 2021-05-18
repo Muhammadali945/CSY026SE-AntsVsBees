@@ -4,6 +4,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Muhammad
+ * This class saves all the users created by the user class. It has function to save and return users from a binary file
+ * The name of file is "userList.dat"
+ */
 public class userList implements Serializable {
 
 
@@ -16,34 +21,34 @@ public class userList implements Serializable {
         userList = new ArrayList<user>();
     }
 
-    public List<user> getCustomer() {
+    public List<user> getUser() {
         return userList;
     }
-    //return customer on a specified index
-    public user showCustomer(int i) {
+    //return user on a specified index
+    public user showUser(int i) {
         return userList.get(i);
     }
 
-    public void addCustomer(user c) {
-        userList.add(c);
+    public void addUser(user u) {
+        userList.add(u);
     }
-    //add multiple customer to the list
-    public void addMultipleCustomer(userList lst) {
-        lst.getCustomer().forEach(cust -> {
-            userList.add(cust);
+    //add multiple user to the list
+    public void addMultipleUser(userList lst) {
+        lst.getUser().forEach(user -> {
+            userList.add(user);
         });
     }
-    //remove customer at a specified index i
-    public void removeCustomer (int i){ userList.remove(i);}
+    //remove user at a specified index i
+    public void removeUser (int i){ userList.remove(i);}
 
     public int getSize() {
         return this.userList.size();
     }
 
-    public void setCustomerList(List<user> userList) {
+    public void setUserList(List<user> userList) {
         this.userList = userList;
     }
-    // Write the customer list to a file named userList.dat
+    // Write the user list to a file named userList.dat
     public static void writeToFile(userList list) throws IOException {
         String filename = "userList.dat";
         // Create the stream objects.
@@ -65,8 +70,8 @@ public class userList implements Serializable {
         System.out.println("The serialized objects " +
                 "were written to "+filename);
     }
-    //// Read the customer list from a file named userList.dat
-    public static userList readCustomerList() throws IOException, ClassNotFoundException {
+    //// Read the user list from a file named userList.dat
+    public static userList readUserList() throws IOException, ClassNotFoundException {
         String filename = "userList.dat";
         userList list = new userList();
         try

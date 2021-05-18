@@ -11,7 +11,7 @@ public abstract class Insect
 
 	protected int armor; //insect's current armor
 	protected Place place; //insect's current location
-	public boolean waterSafe; // insect's ability to go in a water tunnel
+	public boolean waterSafe; // insect's ability to go in a water tunnel @author Muhammad
     public String name = "insect"; //insect's name @author Anas Mudassar
 
 

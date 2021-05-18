@@ -7,7 +7,7 @@ import javax.sound.sampled.Clip;
 
 /**
  * @author Muhammad
- * Some piece of code has been copied from stackoverflow.
+ * Some piece of code has been copied from stackoverflow website.
  */
 
 public class BackgroundMusic {
