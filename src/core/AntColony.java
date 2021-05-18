@@ -132,7 +132,7 @@ public class AntColony
 	 * @param place
 	 * @param ant
 	 */
-	public void placeAnt(Place place, Ant ant){
+	public void placeAnt(Place place, Ant ant) {
 		if ((food >= ant.getFoodCost() && place.getAnt() == null) || (food >= ant.getFoodCost() && place.getAnt() instanceof CoverAnt
 				&& !(ant instanceof CoverAnt)) || (food >= ant.getFoodCost() && !(place.getAnt() instanceof CoverAnt) && ant instanceof CoverAnt)) {
 			if (place instanceof Water && (ant.isWaterSafe())) {
@@ -158,34 +158,39 @@ public class AntColony
 	 * @param ant The ant to place
 	 */
 	public void deployAnt(Place place, Ant ant) {
-		System.out.println(ant.isWaterSafe());
+
 		/**
 		 * @author Anas Mudassar
 		 * The following code will check if there is already a Queen Ant in the Colony
 		 * If there is no QueenAnt in the colony then QueenAnt can be placed
 		 * If there is a QueenAnt in the colony then another QueenAnt cannot placed
 		 */
-		if ((food >= ant.getFoodCost() && place.getAnt() == null)) {
-			if(ant.name == "QueenAnt1") //This will check the QueenAnt name
+		if  ((food >= ant.getFoodCost() && place.getAnt() == null && !(ant instanceof CoverAnt)) ||
+				 (food >= ant.getFoodCost() && !(place.getAnt() instanceof CoverAnt) && ant instanceof CoverAnt)) {
+			if (ant.name == "QueenAnt1") //This will check the QueenAnt name
 			{
-				if(!queenbox.TrueQueen()) //This will check if there is No QueenAnt in colony
+				if (!queenbox.TrueQueen()) //This will check if there is No QueenAnt in colony
 				{
-						food -= ant.getFoodCost();
-						place.addInsect(ant);
-						queenbox.setQueenLocation(place, this);
-				}
-				else {
+					food -= ant.getFoodCost();
+					place.addInsect(ant);
+					queenbox.setQueenLocation(place, this);
+				} else {
 					System.out.println("There can only be one True Queen.");
 				}
-			}
-			else {
+			} else if (ant instanceof CoverAnt && place.getAnt()==null) {
+				System.out.println("bodyguard cannot be placed first");
+			} else {
 				placeAnt(place, ant);
 			}
 		}
+
 		else {
-			System.out.println("Not enough food remains to place " + ant);
+			System.out.println("Not enough food remains to place ant or already ant present" +
+					"" );
+
 		}
 	}
+
 
 	/**
 	 * Removes the ant inhabiting the given Place
@@ -247,3 +252,21 @@ public class AntColony
 		return "Food: "+this.food+"; "+getAllBees() + "; "+getAllAnts();
 	}	
 }
+/*
+	public void deployAnt(Place place, Ant ant){
+		if ((food >= ant.getFoodCost() && place.getAnt() == null) || (food >= ant.getFoodCost() && place.getAnt() instanceof CoverAnt
+				&& !(ant instanceof CoverAnt)) || (food >= ant.getFoodCost() && !(place.getAnt() instanceof CoverAnt) && ant instanceof CoverAnt)) {
+			if (place instanceof Water && (ant.isWaterSafe())) {
+				System.out.println("from water side");
+				this.food -= ant.getFoodCost();
+				place.addInsect(ant);
+			} else if (place instanceof Water && (!(ant.isWaterSafe()))) {
+				System.out.println("This ant cannot swim");
+
+			} else {
+				System.out.println("from normal side");
+				this.food -= ant.getFoodCost();
+				place.addInsect(ant);
+			}
+		}
+	}*/

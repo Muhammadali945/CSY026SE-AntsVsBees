@@ -122,15 +122,18 @@ public class Place
 	 */
 	public void addInsect(Ant ant)
 	{
-		if(this.ant == null)
-		{
-			this.ant = ant;
-			ant.setPlace(this);
-		}
+		if(this.ant == null) {
+
+				this.ant = ant;
+				ant.setPlace(this);
+			}
+
+
 		/**
 		 * @author Muhammad
 		 */
-		else if (this.ant != null && !(this.ant instanceof EncapsulationCharacter) && ant instanceof EncapsulationCharacter) {
+
+		else if (this.ant != null && !(this.ant instanceof CoverAnt) && ant instanceof CoverAnt) {
 			if (((EncapsulationCharacter) ant).EncapsulateAnt(this.ant)) {
 				this.ant = ant;
 				ant.setPlace(this);

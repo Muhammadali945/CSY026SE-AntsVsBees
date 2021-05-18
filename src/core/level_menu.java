@@ -24,7 +24,7 @@ public class level_menu  {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
+    public static void play(){
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -47,6 +47,8 @@ public class level_menu  {
     /**
      * Initialize the contents of the frame.
      */
+
+
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 450, 300);

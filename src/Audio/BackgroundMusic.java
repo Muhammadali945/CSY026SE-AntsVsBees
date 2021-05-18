@@ -5,11 +5,16 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/**
+ * @author Muhammad
+ * Some piece of code has been copied from stackoverflow.
+ */
+
 public class BackgroundMusic {
 
 
     private Clip clip;
-
+// Function for reading an audio stream.
     public BackgroundMusic(String s) {
         //assign audio input stream
         try{
@@ -35,7 +40,7 @@ public class BackgroundMusic {
             e.printStackTrace();
         }
     }
-
+// function for playing the saved audio stream; button has been added for pause/play
     public void play() {
         if (clip ==null) return;
         stop();
@@ -43,7 +48,7 @@ public class BackgroundMusic {
         clip.start();
     }
 
-    //to stop music ; button has to be added in the game for this function
+    //to stop music ; button has been added in the game for this function
     public void stop() {
         if (clip.isRunning()) {
             clip.stop();
