@@ -1,7 +1,5 @@
 package core;
 
-import javafx.scene.paint.Color;
-
 import java.awt.*;
 
 import javax.imageio.ImageIO;
@@ -13,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.LineBorder;
 import javax.swing.text.DefaultCaret;
 
 
@@ -51,16 +50,20 @@ public class level_menu  {
 
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 450, 300);
+        frame.setBounds(0, 0, 600, 350);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("AntVsSomeBees Menu");
 
 
         JButton btnPlay = new JButton("Play");
+        btnPlay.setForeground(Color.red);
+        btnPlay.setBorder(new LineBorder(Color.BLACK));
+        btnPlay.setContentAreaFilled(true);
         btnPlay.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
                 AntsVsSomeBees.playGame();
+                frame.dispose();
             }
         });
 
@@ -80,6 +83,7 @@ public class level_menu  {
             @Override
             public void mouseClicked(MouseEvent e) {
                 AntsVsSomeBees.level = 0;
+
             }
         });
 

@@ -4,36 +4,27 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import core.user;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+/**
+ * @author Muhammad
+ * This is the driver class for the game. It is basically a login page which runs the game if correct credentials are applied.
+ * It also registers new users in a binary file "userList.dat" which is in the root directory
+ */
 
-public class login_view {
+public class run_game {
+    //Following components are added to the class via run_game.from
     private JPasswordField passwordField;
     private JPanel rootPanel;
     private JButton loginButton;
     private JButton registerButton;
-    private JButton button3;
+    private JButton resetButton;
     private JTextField nameTextField;
     private JLabel message;
     private user user;
     private userList uList = new userList();
 
 
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("login_view");
-        frame.setContentPane(new login_view().rootPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-
-    public login_view() {
+    public run_game() {
 
         try {
             uList.addMultipleCustomer(uList.readCustomerList());
@@ -96,17 +87,34 @@ public class login_view {
                         if ((uList.showCustomer(i).getUserName().equals(nameTextField.getText())) && (password.equals((uList.showCustomer(i).getPassword())))) {
                             message.setText("Opening Application");
                             core.level_menu.play();
-                            break;}
-                            else{
-                                message.setText("Either username or password is not correct.");
-                                nameTextField.setText("");
-                                passwordField.setText("");
-                            }
+                            break;
+                        } else {
+                            message.setText("Either username or password is not correct.");
+                            nameTextField.setText("");
+                            passwordField.setText("");
                         }
                     }
                 }
+            }
 
         });
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nameTextField.setText("");
+                passwordField.setText("");
+                message.setText("");
+            }
+        });
     }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("AntVsBees Login Page");
+        frame.setContentPane(new run_game().rootPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
 }
 
