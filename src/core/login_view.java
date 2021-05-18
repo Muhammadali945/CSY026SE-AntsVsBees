@@ -48,24 +48,33 @@ public class login_view {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String password = String.valueOf(passwordField.getPassword());
-
                 message.setText("");
-                user = new user(nameTextField.getText(), password);
-                //System.out.println(user.getUserName());
-                uList.addCustomer(user);
-                try {
-                    userList.writeToFile(uList);
-                } catch (IOException event) {
-                    // TODO Auto-generated catch block
-                    event.printStackTrace();
+                //System.out.println(passwordField.getPassword());
+                if (nameTextField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Empty user name");
+                } else if (password.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Empty Password");
+                } else {
+                    user = new user(nameTextField.getText(), password);
+                    //System.out.println(user.getUserName());
+                    uList.addCustomer(user);
+                    try {
+                        userList.writeToFile(uList);
+                    } catch (IOException event) {
+                        // TODO Auto-generated catch block
+                        event.printStackTrace();
+                    }
+                    message.setText("New user " + nameTextField.getText() + " has been added");
+                    nameTextField.setText("");
+                    passwordField.setText("");
                 }
+
             }
         });
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean check = false;
                 try {
                     uList = userList.readCustomerList();
                 } catch (IOException ioException) {
@@ -87,11 +96,11 @@ public class login_view {
                         if ((uList.showCustomer(i).getUserName().equals(nameTextField.getText())) && (password.equals((uList.showCustomer(i).getPassword())))) {
                             message.setText("Opening Application");
                             core.level_menu.play();
-                            check = true;
-                            System.out.println(check);
                             break;}
                             else{
                                 message.setText("Either username or password is not correct.");
+                                nameTextField.setText("");
+                                passwordField.setText("");
                             }
                         }
                     }
