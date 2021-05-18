@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NinjaAntTest {
     AntColony colony = new AntColony(1,5,0,10);
     Place place1 = new Place("place1");
-    Place place2 = new Place("place2");
+    Place place2 = new Place("place2", place1);
     Place place3 = new Place("place3");
     Place place = new Place("place");
     NinjaAnt na = new NinjaAnt();
@@ -77,6 +77,7 @@ class NinjaAntTest {
         place2.addInsect(bee1);
         place2.addInsect(na);
         na.action(colony);
+        bee1.action(colony);
         place2.removeInsect(bee1);
         place3.addInsect(bee1);
         place3.addInsect(na);
@@ -84,6 +85,7 @@ class NinjaAntTest {
         place3.removeInsect(bee1);
 
         assertEquals(0,bee1.getArmor());
+        assertEquals(1, na.getArmor());
 
 
     }

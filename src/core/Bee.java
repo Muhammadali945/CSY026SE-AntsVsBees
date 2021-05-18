@@ -4,7 +4,7 @@ import ants.SlowThrowerAnt;
 
 /**
  * Represents a Bee
- * @author Anas Mudassar
+ *
  */
 public class Bee extends Insect
 {
@@ -109,10 +109,21 @@ public class Bee extends Insect
 	/**
 	 * Returns true if the bee cannot advance (because an ant is in the way)
 	 * @return if the bee can advance
+	 * @author Muhammad
 	 */
 	public boolean isBlocked()
 	{
-		return this.place.getAnt() != null;
+		//return this.place.getAnt() != null;
+		if (place == null) { //for all other conditions
+			return true;
+		}
+		if(this.place.getAnt() != null && this.place.getAnt().getBlockingAnt()==true) {
+			return false;
+		}else{
+			return place.getAnt() != null;
+
+		}
+
 	}
 
 	/**

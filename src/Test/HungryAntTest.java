@@ -48,8 +48,7 @@ class HungryAntTest {
 
     @Test
     void testFoodRequiredByHungryAnt() {
-        place.addInsect(ha);
-        place.addInsect(bee1);
+        //place.addInsect(ha);
         colony.deployAnt(place, ha);
 
 
