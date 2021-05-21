@@ -74,7 +74,7 @@ public class level_menu  {
 
         JLabel lblLevel = new JLabel("SELECT LEVEL :");
 
-
+        // initialize game with level 0 that is easy level
         JRadioButton radioEasy = new JRadioButton("Easy");
         radioEasy.addMouseListener(new MouseAdapter() {
             @Override
@@ -83,7 +83,7 @@ public class level_menu  {
             }
         });
 
-        // choose radio button for level of the game
+        // initialize game with level 1 that is medium level
         JRadioButton radioMedium = new JRadioButton("Medium");
         radioMedium.addMouseListener(new MouseAdapter() {
             @Override
@@ -92,6 +92,7 @@ public class level_menu  {
             }
         });
 
+        // initialize game with level 2 that is hard level
         JRadioButton radioHard = new JRadioButton("Hard");
         radioHard.addMouseListener(new MouseAdapter() {
             @Override
@@ -107,6 +108,7 @@ public class level_menu  {
                 AntsVsSomeBees.level = 3;
             }
         });
+
 
         JButton gameExplaination = new JButton("How to play");
         gameExplaination.addMouseListener(new MouseAdapter() {
