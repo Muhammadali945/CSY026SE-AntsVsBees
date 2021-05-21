@@ -8,18 +8,20 @@ import javax.sound.sampled.Clip;
 /**
  * @author Muhammad
  * Some piece of code has been copied from stackoverflow website.
+ * This function reads music files from the specified directory and its constructor expects 
+ * the filename of the music.
  */
 
 public class BackgroundMusic {
 
 
     private Clip clip;
-// Function for reading an audio stream.
-    public BackgroundMusic(String s) {
+
+    public BackgroundMusic(String filename) {
         //assign audio input stream
         try{
-            AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(s));
-            AudioFormat baseFormat = ais.getFormat();
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(filename));
+            AudioFormat baseFormat = audioIn.getFormat();
             AudioFormat decodeFormat = new AudioFormat (
                     AudioFormat.Encoding.PCM_SIGNED,
                     baseFormat.getSampleRate(),
@@ -29,11 +31,12 @@ public class BackgroundMusic {
                     baseFormat.getSampleRate(),
                     false
             );
-            AudioInputStream dais =
+            //get the input stream
+            AudioInputStream clipAudioIn =
                     AudioSystem.getAudioInputStream(
-                            decodeFormat,ais);
+                            decodeFormat,audioIn);
             clip = AudioSystem.getClip();
-            clip.open(dais);
+            clip.open(clipAudioIn);
 
         }
         catch (Exception e) {
