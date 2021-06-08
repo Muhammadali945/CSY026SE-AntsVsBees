@@ -20,7 +20,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
  */
 public class level_menu  {
     private JFrame frame;
-    public static void play(){
+    public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
