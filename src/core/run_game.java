@@ -86,7 +86,7 @@ public class run_game {
                         //System.out.println(nameTextField.getText());
                         if ((uList.showUser(i).getUserName().equals(nameTextField.getText())) && (password.equals((uList.showUser(i).getPassword())))) {
                             message.setText("Opening Application");
-                            core.level_menu.play();
+                            //core.level_menu.play();
                             break;
                         } else {
                             message.setText("Either username or password is not correct.");
